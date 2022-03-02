@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class AttachPointScript : MonoBehaviour
 {
-    private BoxCollider2D attachCollider;
+    private BoxCollider2D attachCollider; //references the collider component
+    public GameObject attachedTask = null; //stores the attached task
 
     // Start is called before the first frame update
     void Start()
@@ -15,22 +16,39 @@ public class AttachPointScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //whenever the task is not being dragged, set it's pos to the attach point
+        if (attachedTask != null)
+        {
+            if (attachedTask.GetComponent<TaskScript>().dragging == false)
+            {
+                attachedTask.transform.SetPositionAndRotation(gameObject.transform.position, gameObject.transform.rotation);
+            }
+        }
         
     }
 
-    private void OnTriggerStay2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        //Debug.Log("sas");
-        
-        if (other.name.Contains("Task")) //if the touching object name contains "task", any cloned task should have this property
+        addTask(collision.transform.gameObject);
+    }
+
+    public void addTask(GameObject task)
+    {
+        if (task.name.Contains("Task")) //if the object name contains "task", any cloned task should have this property
         {
-        //is it efficient to make this check every frame? no
-        //will i change it if i dont need to? no lol
-            if (other.GetComponent<TaskScript>().dragging == false)
+            //i had to change the check :((
+            if (attachedTask == null)
             {
-                Debug.Log("yoy");
-                other.transform.SetPositionAndRotation(gameObject.transform.position, gameObject.transform.rotation);
+                attachedTask = task;
             }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.transform.gameObject == attachedTask)
+        {
+            attachedTask = null;
         }
     }
 }
