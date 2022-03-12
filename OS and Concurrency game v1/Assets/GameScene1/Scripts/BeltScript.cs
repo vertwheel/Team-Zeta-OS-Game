@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class BeltScript : MonoBehaviour
 {
-    // Scroll texture based on time 
+    // Scroll texture across object based on time 
 
     public float scrollSpeedX = 0.5f, scrollSpeedY = 0.5f;
     Renderer rend;
