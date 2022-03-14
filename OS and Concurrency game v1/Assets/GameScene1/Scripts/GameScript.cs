@@ -5,8 +5,8 @@ using UnityEngine;
 public class GameScript : MonoBehaviour
 {
     [SerializeField] private GameObject taskPrefab; //defined in editor
-    private GameObject processQueue; //references the process queue object
-    private List<GameObject> pqAttachPoints; //references the process queue's attachment points
+    [SerializeField] private GameObject processQueue; //references the process queue object
+    [SerializeField] private List<GameObject> pqAttachPoints; //references the process queue's attachment points
 
     // Start is called before the first frame update
     void Start()
@@ -24,18 +24,23 @@ public class GameScript : MonoBehaviour
         //keybind for testing purposes
         if (Input.GetKeyDown(KeyCode.UpArrow))
         { 
-            spawnTask();
+	spawnTask(1,4);
+	spawnTask(2,7);
+	spawnTask(4,2);
         }
     }
 
     //add a task in the next valid position in the process queue
-    void spawnTask()
+    void spawnTask(int prority, int busrttime)
     {
+        
         foreach (GameObject ap in pqAttachPoints)
         {
             if (ap.GetComponent<AttachPointScript>().attachedTask == null)
             {
                 ap.GetComponent<AttachPointScript>().addTask(Instantiate(taskPrefab, ap.transform.position, Quaternion.identity));
+                ap.GetComponent<AttachPointScript>().attachedTask.GetComponent<TaskScript>().Set_priority(prority);
+                ap.GetComponent<AttachPointScript>().attachedTask.GetComponent<TaskScript>().Set_burst_time(busrttime); 
                 return; //this probably isnt good code practice idk
             }
         }
