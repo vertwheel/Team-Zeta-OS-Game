@@ -25,6 +25,12 @@ public class GameScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.UpArrow))
         { 
             spawnTask();
+            spawnTask();
+            spawnTask();
+            spawnTask();
+            spawnTask();
+            spawnTask();
+
         }
     }
 
@@ -37,6 +43,7 @@ public class GameScript : MonoBehaviour
             {
                 ap.GetComponent<AttachPointScript>().addTask(Instantiate(taskPrefab, ap.transform.position, Quaternion.identity));
                 return; //this probably isnt good code practice idk
+
             }
         }
     }
