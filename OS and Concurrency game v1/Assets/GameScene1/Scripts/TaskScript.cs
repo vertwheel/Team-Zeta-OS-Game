@@ -14,7 +14,7 @@ public class TaskScript : MonoBehaviour
     //Changing the object color to be blue when mouse move over
     private Color mouseOverColor = Color.blue;
     private Color originalColor = Color.yellow;
-    private bool dragging = false;
+    public bool dragging = false;
     private float distance;
 
 
