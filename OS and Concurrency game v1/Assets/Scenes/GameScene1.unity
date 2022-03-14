@@ -701,6 +701,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   taskPrefab: {fileID: 6657102308175881279, guid: 0b93919e06e923f4b84e282f70c7f597, type: 3}
+  processQueue: {fileID: 0}
+  pqAttachPoints: []
 --- !u!4 &1450754758
 Transform:
   m_ObjectHideFlags: 0
@@ -893,7 +895,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 5.643668
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
