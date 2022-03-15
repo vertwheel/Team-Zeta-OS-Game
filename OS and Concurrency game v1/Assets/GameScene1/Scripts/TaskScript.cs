@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class TaskScript : MonoBehaviour
 {
+
     // Start is called before the first frame update
     void Start()
     {
-
 
     }
 
@@ -29,7 +29,6 @@ public class TaskScript : MonoBehaviour
 
 
     public void Set_burst_time(int set_burst_time)
-
     {
         burst_time = set_burst_time;
     }

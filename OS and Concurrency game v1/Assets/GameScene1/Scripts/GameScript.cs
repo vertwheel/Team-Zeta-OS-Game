@@ -5,8 +5,8 @@ using UnityEngine;
 public class GameScript : MonoBehaviour
 {
     [SerializeField] private GameObject taskPrefab; //defined in editor
-    private GameObject processQueue; //references the process queue object
-    private List<GameObject> pqAttachPoints; //references the process queue's attachment points
+    [SerializeField] private GameObject processQueue; //references the process queue object
+    [SerializeField] private List<GameObject> pqAttachPoints; //references the process queue's attachment points
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +25,7 @@ public class GameScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.UpArrow))
         { 
             spawnTask();
+
         }
     }
 
