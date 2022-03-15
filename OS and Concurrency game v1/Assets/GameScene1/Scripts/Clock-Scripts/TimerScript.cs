@@ -10,6 +10,7 @@ public class TimerScript : MonoBehaviour
     [SerializeField] private TMP_Text uiText;
 
     private int timeLeft;
+    public Gradient gradient;
 
     public int Time { get; private set; }
 
@@ -17,6 +18,8 @@ public class TimerScript : MonoBehaviour
     {
         uiText.text = "00:00";
         uiFillImage.fillAmount = 0f;
+
+        uiFillImage.color = gradient.Evaluate(1f);
     }
 
     // This method will set the timer.
@@ -47,6 +50,7 @@ public class TimerScript : MonoBehaviour
     {
         uiText.text = string.Format("{0:D2}:{1:D2}", second / 60, second % 60);
         uiFillImage.fillAmount = Mathf.InverseLerp (0, Time, second);
+        uiFillImage.color = gradient.Evaluate(Mathf.InverseLerp(0, Time, second));
     }
 
     public void end()
