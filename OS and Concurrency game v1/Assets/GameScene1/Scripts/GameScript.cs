@@ -6,7 +6,9 @@ public class GameScript : MonoBehaviour
 {
     [SerializeField] private GameObject taskPrefab; //defined in editor
     [SerializeField] private GameObject processQueue; //references the process queue object
+    [SerializeField] private GameObject conveyorBelt; //references the conveyor belt object
     [SerializeField] private List<GameObject> pqAttachPoints; //references the process queue's attachment points
+    [SerializeField] private List<GameObject> cbAttachPoints; //references the conveyor belt's attachment points
 
     // Start is called before the first frame update
     void Start()
@@ -15,6 +17,12 @@ public class GameScript : MonoBehaviour
         foreach (Transform child in processQueue.transform) //get all the attachment points of the PQ, put in a list
         {
             pqAttachPoints.Add(child.gameObject);
+        }
+
+        conveyorBelt = GameObject.Find("TopBelt"); //get the top belt object from the conveyor belt prefab
+        foreach (Transform child in conveyorBelt.transform) //get all the attachment points of the CB, put in a list
+        {
+            cbAttachPoints.Add(child.gameObject);
         }
     }
 
