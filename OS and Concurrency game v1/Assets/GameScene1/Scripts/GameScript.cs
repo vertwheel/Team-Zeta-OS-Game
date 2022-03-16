@@ -9,6 +9,10 @@ public class GameScript : MonoBehaviour
     [SerializeField] private GameObject conveyorBelt; //references the conveyor belt object
     [SerializeField] private List<GameObject> pqAttachPoints; //references the process queue's attachment points
     [SerializeField] private List<GameObject> cbAttachPoints; //references the conveyor belt's attachment points
+    [SerializeField] private List<GameObject> correctList; //the intended order of tasks
+    [SerializeField] private List<GameObject> resultList; //the recieved order of tasks, compared to the correct list at the end
+    enum GameTypes { FirstComeFirstServe, RoundRobin }; //stores the types of levels so far, to control spawn and scoring behaviour
+    private GameTypes leveltype = GameTypes.FirstComeFirstServe; //what type of level running currently
 
     // Start is called before the first frame update
     void Start()
@@ -31,22 +35,47 @@ public class GameScript : MonoBehaviour
     {
         //keybind for testing purposes
         if (Input.GetKeyDown(KeyCode.UpArrow))
-        { 
-            spawnTask();
-
+        {
+            spawnTask(1,2);
         }
     }
 
+    //Called whenever the clock ticks
+    public void onTick(int maxRandom)
+    {
+        //for having a random delay between spawns
+        //pick a number between 1 and any number, if its 1 then proceed else dont do anything
+        //set to 1 for 100% chance to spawn every tick, 2 for 50% chance to spawn every tick, etc
+        int diceroll = Random.Range(1, maxRandom);
+        if (diceroll == 1)
+        {
+            switch (leveltype)
+            {
+                case GameTypes.FirstComeFirstServe:
+                    GameObject newtask = spawnTask(Random.Range(1, 5), 0);
+                    if (newtask != null) {
+                        correctList.Add(newtask);
+                    }
+                    break;
+            }
+        }
+    }
+
+
     //add a task in the next valid position in the process queue
-    void spawnTask()
+    GameObject spawnTask(int burstTime, int priority)
     {
         foreach (GameObject ap in pqAttachPoints)
         {
             if (ap.GetComponent<AttachPointScript>().attachedTask == null)
             {
-                ap.GetComponent<AttachPointScript>().addTask(Instantiate(taskPrefab, ap.transform.position, Quaternion.identity));
-                return; //this probably isnt good code practice idk
+                GameObject newTask = Instantiate(taskPrefab, ap.transform.position, Quaternion.identity);
+                newTask.GetComponent<TaskScript>().Set_burst_time(burstTime);
+                newTask.GetComponent<TaskScript>().Set_priority(priority);
+                ap.GetComponent<AttachPointScript>().addTask(newTask);
+                return newTask;
             }
         }
+        return null;
     }
 }
