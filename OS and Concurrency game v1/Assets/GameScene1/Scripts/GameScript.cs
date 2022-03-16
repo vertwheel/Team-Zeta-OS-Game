@@ -43,6 +43,7 @@ public class GameScript : MonoBehaviour
     //Called whenever the clock ticks
     public void onTick(int maxRandom)
     {
+        moveBelt();
         //for having a random delay between spawns
         //pick a number between 1 and any number, if its 1 then proceed else dont do anything
         //set to 1 for 100% chance to spawn every tick, 2 for 50% chance to spawn every tick, etc
@@ -57,6 +58,19 @@ public class GameScript : MonoBehaviour
                         correctList.Add(newtask);
                     }
                     break;
+            }
+        }
+    }
+    private void moveBelt()
+    {
+        for (int i = cbAttachPoints.Count - 2; i >= 0 ; i--)
+        {
+            GameObject ap1 = cbAttachPoints[i];
+            GameObject ap2 = cbAttachPoints[i+1];
+            if ((ap1.GetComponent<AttachPointScript>().attachedTask != null) && (ap2.GetComponent<AttachPointScript>().attachedTask == null))
+            {
+                ap2.GetComponent<AttachPointScript>().addTask(ap1.GetComponent<AttachPointScript>().attachedTask);
+                ap1.GetComponent<AttachPointScript>().removeTask();
             }
         }
     }

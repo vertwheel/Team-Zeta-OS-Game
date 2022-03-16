@@ -48,6 +48,14 @@ public class AttachPointScript : MonoBehaviour
     {
         if (collision.transform.gameObject == attachedTask)
         {
+            removeTask();
+        }
+    }
+
+    public void removeTask()
+    {
+        if (attachedTask != null)
+        {
             attachedTask = null;
         }
     }
