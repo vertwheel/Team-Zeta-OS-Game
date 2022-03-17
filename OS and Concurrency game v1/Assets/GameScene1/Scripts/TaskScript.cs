@@ -27,13 +27,21 @@ public class TaskScript : MonoBehaviour
         priority = set_priority;
     }
 
-
     public void Set_burst_time(int set_burst_time)
     {
         burst_time = set_burst_time;
     }
 
+    public int Get_priority()
 
+    {
+        return priority;
+    }
+
+    public int Get_burst_time()
+    {
+        return burst_time;
+    }
 
     void OnMouseEnter()
     {
