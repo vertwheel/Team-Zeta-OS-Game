@@ -8,6 +8,6 @@ public class TimerTryout : MonoBehaviour
 
     private void Start()
     {
-        timer1.setTimer(30).begin();
+        timer1.setTimer(16).begin();
     }
 }

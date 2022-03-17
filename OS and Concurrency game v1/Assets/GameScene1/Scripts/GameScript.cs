@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class GameScript : MonoBehaviour
 {
+    //dont remove the [SerializeField] parts, program doesnt work without them for some reason
     [SerializeField] private GameObject taskPrefab; //defined in editor
     [SerializeField] private GameObject processQueue; //references the process queue object
     [SerializeField] private GameObject conveyorBelt; //references the conveyor belt object
     [SerializeField] private List<GameObject> pqAttachPoints; //references the process queue's attachment points
     [SerializeField] private List<GameObject> cbAttachPoints; //references the conveyor belt's attachment points
+    private GameObject timer; //references the timer object
+
     [SerializeField] private List<GameObject> correctList; //the intended order of tasks
     [SerializeField] private List<GameObject> resultList; //the recieved order of tasks, compared to the correct list at the end
     enum GameTypes { FirstComeFirstServe, RoundRobin }; //stores the types of levels so far, to control spawn and scoring behaviour
@@ -28,15 +31,25 @@ public class GameScript : MonoBehaviour
         {
             cbAttachPoints.Add(child.gameObject);
         }
+
+        timer = GameObject.Find("Timer"); //get the timer object
     }
 
     // Update is called once per frame
     void Update()
     {
-        //keybind for testing purposes
+        //keybinds for testing purposes
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             spawnTask(1,2);
+        }
+        if (Input.GetKeyDown(KeyCode.KeypadEnter))
+        {
+            Debug.Log(compareLists());
+        }
+        if (timer.GetComponent<TimerScript>().getTimeLeft() == 0)
+        {
+            Debug.Log(compareLists());
         }
     }
 
@@ -54,9 +67,13 @@ public class GameScript : MonoBehaviour
             switch (leveltype)
             {
                 case GameTypes.FirstComeFirstServe:
-                    GameObject newtask = spawnTask(Random.Range(1, 5), 0);
-                    if (newtask != null) {
-                        correctList.Add(newtask);
+                    if (timer.GetComponent<TimerScript>().getTimeLeft() > 15) //dont spawn anything in the last 15 sec to allow for remaining tasks to be consumed
+                    {
+                        GameObject newtask = spawnTask(Random.Range(1, 5), 0);
+                        if (newtask != null)
+                        {
+                            correctList.Add(newtask);
+                        }
                     }
                     break;
             }
@@ -66,6 +83,7 @@ public class GameScript : MonoBehaviour
     //move and update the items on the belt
     private void updateBelt()
     {
+        //move every task on the belt along the belt
         for (int i = cbAttachPoints.Count - 2; i >= 0 ; i--)
         {
             GameObject ap1 = cbAttachPoints[i];
@@ -78,20 +96,37 @@ public class GameScript : MonoBehaviour
         }
 
         GameObject apLast = cbAttachPoints[cbAttachPoints.Count - 1];
+        //When there is a task at the end of the belt
         if (apLast.GetComponent<AttachPointScript>().attachedTask != null)
         {
-            if (apLast.GetComponent<AttachPointScript>().attachedTask.GetComponent<TaskScript>().Get_burst_time() > 1)
+            if (apLast.GetComponent<AttachPointScript>().attachedTask.GetComponent<TaskScript>().Get_burst_time() >= 1)
             {
                 apLast.GetComponent<AttachPointScript>().attachedTask.GetComponent<TaskScript>().Set_burst_time(apLast.GetComponent<AttachPointScript>().attachedTask.GetComponent<TaskScript>().Get_burst_time() - 1);
             } else
             {
+                resultList.Add(apLast.GetComponent<AttachPointScript>().attachedTask);
                 Destroy(apLast.GetComponent<AttachPointScript>().attachedTask);
             }
         }
     }
 
-
-
+    private bool compareLists()
+    {
+        switch (leveltype)
+        {
+            case GameTypes.FirstComeFirstServe:
+                if (correctList.Count != resultList.Count)
+                    return false;
+                for (int i = 0; i < correctList.Count; i++)
+                {
+                    if (correctList[i] != resultList[i])
+                        return false;
+                }
+                return true;
+            default:
+                return false;
+        }
+    }
 
     //add a task in the next valid position in the process queue
     GameObject spawnTask(int burstTime, int priority)

@@ -21,7 +21,7 @@ public class AttachPointScript : MonoBehaviour
         {
             if (attachedTask.GetComponent<TaskScript>().dragging == false)
             {
-                attachedTask.transform.position = Vector3.Lerp(attachedTask.transform.position, gameObject.transform.position,0.5f);
+                attachedTask.transform.position = Vector3.Lerp(attachedTask.transform.position, gameObject.transform.position,0.1f);
             }
         }
         

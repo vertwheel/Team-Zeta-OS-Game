@@ -62,4 +62,9 @@ public class TimerScript : MonoBehaviour
         reset(); 
 
     }
+
+    public int getTimeLeft()
+    {
+        return timeLeft;
+    }
 }
