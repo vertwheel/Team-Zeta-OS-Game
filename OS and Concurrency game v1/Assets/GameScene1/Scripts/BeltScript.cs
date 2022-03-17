@@ -10,7 +10,7 @@ public class BeltScript : MonoBehaviour
 {
     // Scroll texture across object based on time 
 
-    public float scrollSpeedX = 0.5f, scrollSpeedY = 0.5f;
+    private float scrollSpeedX = 0.15f, scrollSpeedY = 0f;
     Renderer rend;
 
     void Start()
