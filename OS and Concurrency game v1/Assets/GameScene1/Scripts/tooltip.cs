@@ -1,18 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class tooltip : MonoBehaviour
+[ExecuteInEditMode]
+public class Tooltip : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public TextMeshProUGUI headerField;
+
+    public TextMeshProUGUI contentField;
+
+    public TextMeshProUGUI layoutElement;
+
+    public int characterWrapLimit;
+
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        int headerLength = headerField.text.Length;
+        int contentLength = contentField.text.Length;
+
+        layoutElement.enableAutoSizing = (headerLength > characterWrapLimit || contentLength > characterWrapLimit) ? true : false;
+
     }
+
 }
