@@ -13,6 +13,7 @@ public class BeltScript : MonoBehaviour
     public float scrollSpeedX = 0.5f, scrollSpeedY = 0.5f;
     Renderer rend;
 
+
     void Start()
     {
         rend = GetComponent<Renderer> ();
@@ -25,4 +26,5 @@ public class BeltScript : MonoBehaviour
         float offsetY = Time.time * scrollSpeedY;
         rend.material.mainTextureOffset = new Vector2(offsetX, offsetY);
     }
+
 }
