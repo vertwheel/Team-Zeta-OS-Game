@@ -6,7 +6,7 @@ using UnityEngine;
 [System.Serializable]
 public class TextClass
 {
-    public string name;
+    [SerializeField] public string name;
 
     [TextArea(3, 10)]
     public string[] sentences;

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TextManager : MonoBehaviour
 {
-    private Queue<string> sentences;
+    [SerializeField] private Queue<string> sentences;
 
 
     // Start is called before the first frame update
@@ -16,7 +16,11 @@ public class TextManager : MonoBehaviour
     }
 
     public void StartText(TextClass text) {
+
+
+
         Debug.Log("starting convo with " + text.name);
+
     }
 
 

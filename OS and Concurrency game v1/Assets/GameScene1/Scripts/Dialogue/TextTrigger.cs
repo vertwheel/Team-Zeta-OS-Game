@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TextTrigger : MonoBehaviour
 {
-    public TextClass text;
+    [SerializeField] public TextClass text;
 
     public void TriggerText() {
 

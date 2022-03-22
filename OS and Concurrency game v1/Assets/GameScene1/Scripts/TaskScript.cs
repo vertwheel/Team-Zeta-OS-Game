@@ -18,7 +18,7 @@ public class TaskScript : MonoBehaviour
     private float distance;
 
 
-    private int burst_time;
+    [SerializeField] private int burst_time;
     private int priority;
 
     public void Set_priority(int set_priority)
