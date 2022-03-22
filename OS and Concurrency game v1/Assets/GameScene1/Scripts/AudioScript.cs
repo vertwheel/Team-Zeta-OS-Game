@@ -7,6 +7,6 @@ public class AudioScript : MonoBehaviour
     public AudioSource audioSource;
     void Start()
     {
-        audioSource.Play();
+        //audioSource.Play();
     }
 }

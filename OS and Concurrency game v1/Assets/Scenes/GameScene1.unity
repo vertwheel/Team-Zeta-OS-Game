@@ -1476,6 +1476,9 @@ MonoBehaviour:
   conveyorBelt: {fileID: 0}
   pqAttachPoints: []
   cbAttachPoints: []
+  leveltext: {fileID: 0}
+  correctList: []
+  resultList: []
 --- !u!4 &1450754758
 Transform:
   m_ObjectHideFlags: 0
@@ -1505,7 +1508,6 @@ GameObject:
   - component: {fileID: 1453222732}
   - component: {fileID: 1453222731}
   - component: {fileID: 1453222736}
-  - component: {fileID: 1453222737}
   m_Layer: 0
   m_Name: TopBelt
   m_TagString: Untagged
@@ -1525,8 +1527,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7483cc587c250744a6a11e30b12647d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollSpeedX: 0.5
-  scrollSpeedY: 0
 --- !u!65 &1453222732
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1624,7 +1624,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: be70e1fcc677d6d4899608b433a86fbe, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.52
+  m_Volume: 0.28
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1708,19 +1708,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1453222737
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1453222730}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36a798fde97a2e349be1afac5289b5a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSource: {fileID: 1453222736}
 --- !u!1001 &1605665885
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2235,8 +2222,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7483cc587c250744a6a11e30b12647d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollSpeedX: 0.5
-  scrollSpeedY: 0
 --- !u!65 &1914557246
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -12,7 +12,7 @@ public class GameScript : MonoBehaviour
     [SerializeField] private List<GameObject> pqAttachPoints; //references the process queue's attachment points
     [SerializeField] private List<GameObject> cbAttachPoints; //references the conveyor belt's attachment points
     private GameObject timer; //references the timer object
-    [SerializeField] private TMP_Text leveltext;
+    private TMP_Text leveltext;
 
     [SerializeField] private List<GameObject> correctList; //the intended order of tasks
     [SerializeField] private List<GameObject> resultList; //the recieved order of tasks, compared to the correct list at the end
@@ -35,6 +35,9 @@ public class GameScript : MonoBehaviour
         }
 
         timer = GameObject.Find("Timer"); //get the timer object
+        timer.GetComponent<TimerScript>().setTimer(40).begin(); //start the timer at 40 seconds
+
+        conveyorBelt.GetComponent<AudioSource>().Play();
     }
 
     // Update is called once per frame
