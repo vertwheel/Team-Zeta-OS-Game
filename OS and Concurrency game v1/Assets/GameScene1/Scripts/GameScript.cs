@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
+using TMPro;
 public class GameScript : MonoBehaviour
 {
     //dont remove the [SerializeField] parts, program doesnt work without them for some reason
@@ -11,6 +12,7 @@ public class GameScript : MonoBehaviour
     [SerializeField] private List<GameObject> pqAttachPoints; //references the process queue's attachment points
     [SerializeField] private List<GameObject> cbAttachPoints; //references the conveyor belt's attachment points
     private GameObject timer; //references the timer object
+    [SerializeField] private TMP_Text leveltext;
 
     [SerializeField] private List<GameObject> correctList; //the intended order of tasks
     [SerializeField] private List<GameObject> resultList; //the recieved order of tasks, compared to the correct list at the end
@@ -39,17 +41,25 @@ public class GameScript : MonoBehaviour
     void Update()
     {
         //keybinds for testing purposes
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            spawnTask(1,2);
-        }
-        if (Input.GetKeyDown(KeyCode.KeypadEnter))
-        {
-            Debug.Log(compareLists());
-        }
+        //if (Input.GetKeyDown(KeyCode.UpArrow))
+        //{
+        //    spawnTask(1,2);
+        //}
+        //if (Input.GetKeyDown(KeyCode.KeypadEnter))
+        //{
+        //    Debug.Log(compareLists());
+        //}
+
         if (timer.GetComponent<TimerScript>().getTimeLeft() == 0)
         {
-            Debug.Log(compareLists());
+            //Debug.Log(compareLists());
+            if (compareLists())
+            {
+                leveltext.text = "You win!";
+            } else
+            {
+                leveltext.text = "You lose!";
+            }
         }
     }
 
@@ -60,16 +70,16 @@ public class GameScript : MonoBehaviour
 
         //for having a random delay between spawns
         //pick a number between 1 and any number, if its 1 then proceed else dont do anything
-        //set to 1 for 100% chance to spawn every tick, 2 for 50% chance to spawn every tick, etc
+        //set maxRandom to 1 for 100% chance to spawn every tick, 2 for 50% chance to spawn every tick, etc
         int diceroll = Random.Range(1, maxRandom);
         if (diceroll == 1)
         {
             switch (leveltype)
             {
                 case GameTypes.FirstComeFirstServe:
-                    if (timer.GetComponent<TimerScript>().getTimeLeft() > 15) //dont spawn anything in the last 15 sec to allow for remaining tasks to be consumed
+                    if (timer.GetComponent<TimerScript>().getTimeLeft() > 20) //dont spawn anything in the last 20 sec to allow for remaining tasks to be consumed
                     {
-                        GameObject newtask = spawnTask(Random.Range(1, 5), 0);
+                        GameObject newtask = spawnTask(Random.Range(1, 3), 0);
                         if (newtask != null)
                         {
                             correctList.Add(newtask);
@@ -83,6 +93,23 @@ public class GameScript : MonoBehaviour
     //move and update the items on the belt
     private void updateBelt()
     {
+        GameObject apLast = cbAttachPoints[cbAttachPoints.Count - 1];
+        //When there is a task at the end of the belt
+        if (apLast.GetComponent<AttachPointScript>().attachedTask != null)
+        {
+            GameObject taskLast = apLast.GetComponent<AttachPointScript>().attachedTask;
+            if (taskLast.GetComponent<TaskScript>().Get_burst_time() > 1)
+            {
+                taskLast.GetComponent<TaskScript>().Set_burst_time(taskLast.GetComponent<TaskScript>().Get_burst_time() - 1);
+                taskLast.transform.SetPositionAndRotation(taskLast.transform.position + new Vector3(Random.Range(-0.2f, 0.2f), Random.Range(-0.2f, 0.2f)), taskLast.transform.rotation);
+            }
+            else
+            {
+                resultList.Add(taskLast);
+                Destroy(taskLast);
+            }
+        }
+
         //move every task on the belt along the belt
         for (int i = cbAttachPoints.Count - 2; i >= 0 ; i--)
         {
@@ -92,20 +119,6 @@ public class GameScript : MonoBehaviour
             {
                 ap2.GetComponent<AttachPointScript>().addTask(ap1.GetComponent<AttachPointScript>().attachedTask);
                 ap1.GetComponent<AttachPointScript>().removeTask();
-            }
-        }
-
-        GameObject apLast = cbAttachPoints[cbAttachPoints.Count - 1];
-        //When there is a task at the end of the belt
-        if (apLast.GetComponent<AttachPointScript>().attachedTask != null)
-        {
-            if (apLast.GetComponent<AttachPointScript>().attachedTask.GetComponent<TaskScript>().Get_burst_time() >= 1)
-            {
-                apLast.GetComponent<AttachPointScript>().attachedTask.GetComponent<TaskScript>().Set_burst_time(apLast.GetComponent<AttachPointScript>().attachedTask.GetComponent<TaskScript>().Get_burst_time() - 1);
-            } else
-            {
-                resultList.Add(apLast.GetComponent<AttachPointScript>().attachedTask);
-                Destroy(apLast.GetComponent<AttachPointScript>().attachedTask);
             }
         }
     }

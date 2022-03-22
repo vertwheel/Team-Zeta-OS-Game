@@ -39,12 +39,12 @@ public class TimerScript : MonoBehaviour
     {
         while(timeLeft > 0)
         {
-            GameObject.Find("GameObject").GetComponent<GameScript>().onTick(1); 
             //find the gamescript and call OnTick
             //coupling moment, this is definitely not good code practice but what can ya do
-
-            updateUI(timeLeft);
+            GameObject.Find("GameObject").GetComponent<GameScript>().onTick(3);           
             timeLeft--;
+            updateUI(timeLeft);
+            
             yield return new WaitForSeconds(1f);
         }
         end();
