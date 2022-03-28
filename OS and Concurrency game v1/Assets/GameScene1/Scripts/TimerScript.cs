@@ -67,4 +67,15 @@ public class TimerScript : MonoBehaviour
     {
         return timeLeft;
     }
+    void OnMouseExit()
+    {
+        transform.Find("canvas").gameObject.SetActive(false);
+    }
+    // When mouse enter the tooltip will show
+    private void OnMouseOver()
+    {
+        transform.Find("canvas").gameObject.SetActive(true);
+        transform.GetComponentInChildren<Text>().text = "Counting down";
+
+    }
 }
