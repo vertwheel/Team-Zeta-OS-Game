@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /* 
  This script animates texture applied on an object in a specified direction/offset
@@ -27,4 +28,16 @@ public class BeltScript : MonoBehaviour
         rend.material.mainTextureOffset = new Vector2(offsetX, offsetY);
     }
 
+    //Will hide the tooltip
+    //void OnMouseExit()
+    //{
+    //    transform.Find("canvas").gameObject.SetActive(false);
+    //}
+    // When mouse enter the tooltip will show
+    //private void OnMouseOver()
+    //{
+      //  transform.Find("canvas").gameObject.SetActive(true);
+      //  transform.GetComponentInChildren<Text>().text = "CPU box";
+
+//    }
 }
