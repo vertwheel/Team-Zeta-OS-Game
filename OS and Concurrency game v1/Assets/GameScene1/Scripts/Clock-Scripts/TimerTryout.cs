@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class TimerTryout : MonoBehaviour
 {
-    [SerializeField] TimerScript timer1;
+    [SerializeField] private GameTimerScript timer1;
 
     private void Start()
     {
-        timer1.setTimer(30).begin();
+        timer1.setTimer(0).begin();
     }
 }
