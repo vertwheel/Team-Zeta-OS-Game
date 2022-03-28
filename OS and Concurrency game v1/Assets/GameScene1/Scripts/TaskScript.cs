@@ -23,6 +23,7 @@ public class TaskScript : MonoBehaviour
     [SerializeField] private int priority;
     //[SerializeField] private int ID;
 
+
     public void Set_priority(int set_priority)
 
     {
