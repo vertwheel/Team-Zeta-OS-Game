@@ -9,18 +9,19 @@ using UnityEngine;
 public class BeltScript : MonoBehaviour
 {
     // Scroll texture across object based on time 
-
     private float scrollSpeedX = 0.15f, scrollSpeedY = 0f;
     Renderer rend;
-    
-    public float getScrollSpeedX()
+
+    // Get method for value of scroll speed on x axis
+    public float GetScrollSpeedX()
     {
-        get { return scrollSpeedX; }
+        return scrollSpeedX; 
     }
     
-    public float setScrollSpeedX()
+    // Method to change scroll speed on x axis from other classes
+    public float SetScrollSpeedX(float newScrollSpeedX)
     {
-        set { scrollSpeedX = 0; }
+        scrollSpeedX = newScrollSpeedX;
     }
 
     void Start()
