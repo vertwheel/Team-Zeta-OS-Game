@@ -12,7 +12,16 @@ public class BeltScript : MonoBehaviour
 
     private float scrollSpeedX = 0.15f, scrollSpeedY = 0f;
     Renderer rend;
-
+    
+    public float getScrollSpeedX()
+    {
+        get { return scrollSpeedX; }
+    }
+    
+    public float setScrollSpeedX()
+    {
+        set { scrollSpeedX = 0; }
+    }
 
     void Start()
     {
@@ -26,5 +35,7 @@ public class BeltScript : MonoBehaviour
         float offsetY = Time.time * scrollSpeedY;
         rend.material.mainTextureOffset = new Vector2(offsetX, offsetY);
     }
+    
+    
 
 }
