@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TaskScript : MonoBehaviour
 {
@@ -51,6 +52,7 @@ public class TaskScript : MonoBehaviour
     void OnMouseExit()
     {
         GetComponent<Renderer>().material.color = originalColor;
+        transform.Find("canvas").gameObject.SetActive(false);
     }
  
     void OnMouseDown()
@@ -75,5 +77,12 @@ public class TaskScript : MonoBehaviour
             Vector3 rayPoint = ray.GetPoint(distance);
             transform.position = rayPoint;
         }
+    }
+
+    private void OnMouseOver()
+    {
+        transform.Find("canvas").gameObject.SetActive(true);
+        transform.GetComponentInChildren<Text>().text = "bt:" + burst_time + "  p:" + priority;
+            
     }
 }
