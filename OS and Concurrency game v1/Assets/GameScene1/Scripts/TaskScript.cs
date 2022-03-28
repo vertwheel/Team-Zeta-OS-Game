@@ -20,6 +20,7 @@ public class TaskScript : MonoBehaviour
 
     [SerializeField] private int burst_time;
     [SerializeField] private int priority;
+    //[SerializeField] private int ID;
 
     public void Set_priority(int set_priority)
 
@@ -32,6 +33,11 @@ public class TaskScript : MonoBehaviour
         burst_time = set_burst_time;
     }
 
+    //public void Set_ID(int set_ID)
+    //{
+    //    ID = set_ID;
+    //}
+
     public int Get_priority()
 
     {
@@ -42,6 +48,11 @@ public class TaskScript : MonoBehaviour
     {
         return burst_time;
     }
+
+    //public int Get_ID()
+    //{
+    //    return ID;
+    //}
 
     void OnMouseEnter()
     {
