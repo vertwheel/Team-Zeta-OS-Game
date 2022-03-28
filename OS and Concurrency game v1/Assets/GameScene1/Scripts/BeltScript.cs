@@ -19,7 +19,7 @@ public class BeltScript : MonoBehaviour
     }
     
     // Method to change scroll speed on x axis from other classes
-    public float SetScrollSpeedX(float newScrollSpeedX)
+    public void SetScrollSpeedX(float newScrollSpeedX)
     {
         scrollSpeedX = newScrollSpeedX;
     }
