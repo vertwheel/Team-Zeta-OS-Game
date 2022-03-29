@@ -14,12 +14,16 @@ public class GameScript : MonoBehaviour
     [SerializeField] private List<GameObject> cbAttachPoints; //references the conveyor belt's attachment points
     private GameObject timer; //references the timer object
     private GameObject burstTimeClock; //references the burst timer clock object
+    private GameObject quantumTimeClock; //references the time quantum clock object
+
+    private int timeQuantum = 2;
+    private bool quantumTimeClockStarted = false;
 
     [SerializeField] private List<GameObject> preList; //the predetermined spawn order of tasks
     [SerializeField] private List<GameObject> correctList; //the intended result order of tasks
     [SerializeField] private List<GameObject> resultList; //the recieved result order of tasks, compared to the correct list at the end
     enum GameTypes { FirstComeFirstServe, PriorityQueue, RoundRobin }; //stores the types of levels so far, to control spawn and scoring behaviour
-    private GameTypes leveltype = GameTypes.PriorityQueue; //what type of level running currently
+    private GameTypes leveltype = GameTypes.RoundRobin; //what type of level running currently
     private bool levelEnd = false; //check whether level has reached time 0
 
     // Start is called before the first frame update
@@ -39,6 +43,7 @@ public class GameScript : MonoBehaviour
 
         timer = GameObject.Find("Timer"); //get the timer object
         burstTimeClock = GameObject.Find("Burst Timer"); //get the burst time clock
+        quantumTimeClock = GameObject.Find("Quantum Clock"); //get the time quantum clock
 
         conveyorBelt.GetComponent<AudioSource>().Play();
 
@@ -95,20 +100,12 @@ public class GameScript : MonoBehaviour
 
             case GameTypes.RoundRobin:
                 timer.GetComponent<TimerScript>().setTimer(40).begin(); //start the timer at 40 seconds
-                for (int i = 0; i < 8; i++)
-                {
-                    GameObject newtask = spawnTask(i, Random.Range(1, 3), false);
-                    preList.Add(newtask);
-                    newtask.active = false;
-                    //Debug.Log(newtask.GetComponent<TaskScript>().Get_priority());
-                }
+                //correctList = preList.OrderBy<GameObject, int>(w => w.GetComponent<TaskScript>().Get_burst_time()).ToList();
 
-                correctList = preList.OrderBy<GameObject, int>(w => w.GetComponent<TaskScript>().Get_burst_time()).ToList();
-
-                foreach (GameObject task in preList)
-                {
-                    spawnTask(task, true);
-                }
+                //foreach (GameObject task in preList)
+                //{
+                //    spawnTask(task, true);
+                //}
                 break;
         }
     }
@@ -119,25 +116,21 @@ public class GameScript : MonoBehaviour
         {
             case GameTypes.FirstComeFirstServe:
                 if (compareLists())
-                {
                     Debug.Log("truu");
-                }
                 else
-                {
                     Debug.Log("falsee");
-                }
                 break;
             case GameTypes.RoundRobin:
+                if (compareLists())
+                    Debug.Log("truu");
+                else
+                    Debug.Log("falsee");
                 break;
             case GameTypes.PriorityQueue:
                 if (compareLists())
-                {
                     Debug.Log("truu");
-                }
                 else
-                {
                     Debug.Log("falsee");
-                }
                 break;
         }
     }
@@ -169,11 +162,40 @@ public class GameScript : MonoBehaviour
             case GameTypes.PriorityQueue:
                 break;
             case GameTypes.RoundRobin:
+                if (timer.GetComponent<TimerScript>().getTimeLeft() > 20) //dont spawn anything in the last 20 sec to allow for remaining tasks to be consumed
+                {
+                    //for having a random delay between spawns
+                    //pick a number between 1 and any number, if its 1 then proceed else dont do anything
+                    //set to 1 for 100% chance to spawn every tick, 2 for 50% chance to spawn every tick, etc
+                    int diceroll = Random.Range(1, 5);
+                    if (diceroll == 1)
+                    {
+                        GameObject newtask = spawnTask(Random.Range(5, 8), 0, true);
+                        if (newtask != null)
+                        {
+                            correctList.Add(newtask);
+                        }
+                    }
+                }
                 break;
-            
-        }
+        } 
+    }
 
-        
+    public void quantumTick()
+    {
+        //Debug.Log("Before:");
+        //foreach (GameObject task in correctList)
+        //{
+        //    Debug.Log(task.GetComponent<TaskScript>().Get_burst_time());
+        //}
+        GameObject firstTask = correctList[0];
+        correctList.RemoveAt(0);
+        correctList.Insert(correctList.Count, firstTask);
+        //Debug.Log("After:");
+        //foreach (GameObject task in correctList)
+        //{
+        //    Debug.Log(task.GetComponent<TaskScript>().Get_burst_time());
+        //}
     }
 
     //move and update the items on the belt
@@ -183,6 +205,11 @@ public class GameScript : MonoBehaviour
         //When there is a task at the end of the belt
         if (apLast.GetComponent<AttachPointScript>().attachedTask != null)
         {
+            if ((leveltype == GameTypes.RoundRobin) && !quantumTimeClockStarted)
+            {
+                quantumTimeClockStarted = true;
+                quantumTimeClock.GetComponent<QuantumTimerScript>().setTimer(timeQuantum).begin();
+            }
             GameObject taskLast = apLast.GetComponent<AttachPointScript>().attachedTask;
             if (taskLast.GetComponent<TaskScript>().Get_burst_time() > 1)
             {
@@ -218,8 +245,6 @@ public class GameScript : MonoBehaviour
                     return false;
                 for (int i = 0; i < correctList.Count; i++)
                 {
-                    //if (correctList[i].GetComponent<TaskScript>().Get_ID() != resultList[i].GetComponent<TaskScript>().Get_ID())
-                    //    return false;
                     if (correctList[i] != resultList[i])
                         return false;
                 }
@@ -239,12 +264,18 @@ public class GameScript : MonoBehaviour
                 for (int i = 1; i < resultList.Count; i++)
                 {
                     if (resultList[i].GetComponent<TaskScript>().Get_priority() < lastP)
-                    {
                         return false;
-                    } else
-                    {
+                    else
                         lastP = resultList[i].GetComponent<TaskScript>().Get_priority();
-                    }
+                }
+                return true;
+            case GameTypes.RoundRobin:
+                if (correctList.Count != resultList.Count)
+                    return false;
+                for (int i = 0; i < correctList.Count; i++)
+                {
+                    if (correctList[i] != resultList[i])
+                        return false;
                 }
                 return true;
             default:
