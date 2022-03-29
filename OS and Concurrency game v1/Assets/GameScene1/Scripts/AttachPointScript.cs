@@ -16,12 +16,12 @@ public class AttachPointScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //whenever the task is not being dragged, set it's pos to the attach point
+        //whenever the task is not being dragged, set it's pos to the attach point over time
         if (attachedTask != null)
         {
             if (attachedTask.GetComponent<TaskScript>().dragging == false)
             {
-                attachedTask.transform.SetPositionAndRotation(gameObject.transform.position, gameObject.transform.rotation);
+                attachedTask.transform.position = Vector3.Lerp(attachedTask.transform.position, gameObject.transform.position,0.1f);
             }
         }
         
@@ -47,6 +47,14 @@ public class AttachPointScript : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.transform.gameObject == attachedTask)
+        {
+            removeTask();
+        }
+    }
+
+    public void removeTask()
+    {
+        if (attachedTask != null)
         {
             attachedTask = null;
         }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI ;
 
 public class CPUScript : MonoBehaviour
 {
@@ -14,5 +15,16 @@ public class CPUScript : MonoBehaviour
     void Update()
     {
         
+    }
+    //Will hide the tooltip
+    void OnMouseExit() { 
+        transform.Find("canvas").gameObject.SetActive(false);
+    }
+    // When mouse enter the tooltip will show
+    private void OnMouseOver()
+    {
+        transform.Find("canvas").gameObject.SetActive(true);
+        transform.GetComponentInChildren<Text>().text = "CPU box";
+
     }
 }

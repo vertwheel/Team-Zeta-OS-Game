@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TaskScript : MonoBehaviour
 {
@@ -18,8 +19,10 @@ public class TaskScript : MonoBehaviour
     private float distance;
 
 
-    private int burst_time;
-    private int priority;
+    [SerializeField] private int burst_time;
+    [SerializeField] private int priority;
+    //[SerializeField] private int ID;
+
 
     public void Set_priority(int set_priority)
 
@@ -27,13 +30,31 @@ public class TaskScript : MonoBehaviour
         priority = set_priority;
     }
 
-
     public void Set_burst_time(int set_burst_time)
     {
         burst_time = set_burst_time;
     }
 
+    //public void Set_ID(int set_ID)
+    //{
+    //    ID = set_ID;
+    //}
 
+    public int Get_priority()
+
+    {
+        return priority;
+    }
+
+    public int Get_burst_time()
+    {
+        return burst_time;
+    }
+
+    //public int Get_ID()
+    //{
+    //    return ID;
+    //}
 
     void OnMouseEnter()
     {
@@ -43,6 +64,7 @@ public class TaskScript : MonoBehaviour
     void OnMouseExit()
     {
         GetComponent<Renderer>().material.color = originalColor;
+        transform.Find("canvas").gameObject.SetActive(false);
     }
  
     void OnMouseDown()
@@ -67,5 +89,12 @@ public class TaskScript : MonoBehaviour
             Vector3 rayPoint = ray.GetPoint(distance);
             transform.position = rayPoint;
         }
+    }
+
+    private void OnMouseOver()
+    {
+        transform.Find("canvas").gameObject.SetActive(true);
+        transform.GetComponentInChildren<Text>().text = "bt:" + burst_time + "  p:" + priority;
+            
     }
 }
