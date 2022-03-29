@@ -21,6 +21,7 @@ public class TaskScript : MonoBehaviour
     [SerializeField] private int burst_time;
     [SerializeField] private int priority;
 
+
     public void Set_priority(int set_priority)
 
     {
