@@ -35,9 +35,13 @@ public class GameTimerScript : MonoBehaviour
     {
         while(timeCount < 300)
         {
+            //find the gamescript and call OnTick
+            //coupling moment, this is definitely not good code practice but what can ya do
+            GameObject.Find("GameObject").GetComponent<GameScript>().onTick();
+
             UpdateUI(timeCount);
             timeCount++;
-            Debug.Log(timeCount);
+            //Debug.Log(timeCount);
             yield return new WaitForSeconds(1f);
         }
         End();
