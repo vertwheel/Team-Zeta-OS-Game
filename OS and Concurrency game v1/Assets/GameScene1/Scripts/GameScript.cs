@@ -16,14 +16,14 @@ public class GameScript : MonoBehaviour
     private GameObject burstTimeClock; //references the burst timer clock object
     private GameObject quantumTimeClock; //references the time quantum clock object
 
-    private int timeQuantum = 2;
+    private int timeQuantum = 4;
     private bool quantumTimeClockStarted = false;
 
     [SerializeField] private List<GameObject> preList; //the predetermined spawn order of tasks
     [SerializeField] private List<GameObject> correctList; //the intended result order of tasks
     [SerializeField] private List<GameObject> resultList; //the recieved result order of tasks, compared to the correct list at the end
     enum GameTypes { FirstComeFirstServe, PriorityQueue, RoundRobin }; //stores the types of levels so far, to control spawn and scoring behaviour
-    private GameTypes leveltype = GameTypes.RoundRobin; //what type of level running currently
+    private GameTypes leveltype = GameTypes.FirstComeFirstServe; //what type of level running currently
     private bool levelEnd = false; //check whether level has reached time 0
 
     // Start is called before the first frame update
@@ -46,7 +46,6 @@ public class GameScript : MonoBehaviour
         quantumTimeClock = GameObject.Find("Quantum Clock"); //get the time quantum clock
 
         conveyorBelt.GetComponent<AudioSource>().Play();
-
         burstTimeClock.GetComponent<GameTimerScript>().setTimer(0).begin();
         startLevel();
     }
@@ -59,10 +58,10 @@ public class GameScript : MonoBehaviour
         //{
         //    spawnTask(1,2);
         //}
-        if (Input.GetKeyDown(KeyCode.KeypadEnter))
-        {
-            Debug.Log(compareLists());
-        }
+        //if (Input.GetKeyDown(KeyCode.KeypadEnter))
+        //{
+        //    Debug.Log(compareLists());
+        //}
 
         if ((timer.GetComponent<TimerScript>().getTimeLeft() == 0) && !levelEnd)
         {
@@ -74,8 +73,10 @@ public class GameScript : MonoBehaviour
 
     private void startLevel()
     {
+        quantumTimeClock.active = false;
         switch (leveltype)
         {
+            
             case GameTypes.FirstComeFirstServe:
                 timer.GetComponent<TimerScript>().setTimer(40).begin(); //start the timer at 40 seconds
                 break;
@@ -100,12 +101,7 @@ public class GameScript : MonoBehaviour
 
             case GameTypes.RoundRobin:
                 timer.GetComponent<TimerScript>().setTimer(40).begin(); //start the timer at 40 seconds
-                //correctList = preList.OrderBy<GameObject, int>(w => w.GetComponent<TaskScript>().Get_burst_time()).ToList();
-
-                //foreach (GameObject task in preList)
-                //{
-                //    spawnTask(task, true);
-                //}
+                quantumTimeClock.active = true;
                 break;
         }
     }
