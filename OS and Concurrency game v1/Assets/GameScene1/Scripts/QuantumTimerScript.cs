@@ -9,6 +9,8 @@ public class QuantumTimerScript : MonoBehaviour
     [SerializeField] private Image uiFillImage;
     //[SerializeField] private TMP_Text uiText;
 
+    private bool paused = false; //track whether the clock is paused
+
     private int timeLeft;
     public Gradient gradient;   
 
@@ -42,11 +44,21 @@ public class QuantumTimerScript : MonoBehaviour
     {
         while (timeLeft > 0)
         {
-            updateUI(timeLeft);
+            while (paused)
+            {
+                yield return null; //if paused, skip the rest of the coroutine, ie pause it
+            }
+
             timeLeft--;
+            updateUI(timeLeft);
             yield return new WaitForSeconds(1f);
         }
         end();
+    }
+
+    public void togglePause()
+    {
+        paused = !paused;
     }
 
     private void updateUI(int second)

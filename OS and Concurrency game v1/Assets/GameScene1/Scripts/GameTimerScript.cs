@@ -10,12 +10,14 @@ public class GameTimerScript : MonoBehaviour
     [SerializeField] private TMP_Text uiText;
 
     private int timeCount;
-    
+    private bool paused = false; //track whether the clock is paused
+    [SerializeField] Sprite playButton; //set in the inspector
+    [SerializeField] Sprite pauseButton; //set in the inspector
 
     public int Time { get; private set; }
 
     //To reset the timer.
-    private void Reset()
+        private void Reset()
     {
         uiText.text = "00:00";
     }
@@ -33,8 +35,13 @@ public class GameTimerScript : MonoBehaviour
 
     private IEnumerator UpdateTimer()
     {
-        while(timeCount < 300)
+        
+        while (timeCount < 300)
         {
+            while (paused)
+            {
+                yield return null; //if paused, skip the rest of the coroutine, ie pause it
+            }
             //find the gamescript and call OnTick
             //coupling moment, this is definitely not good code practice but what can ya do
             GameObject.Find("GameObject").GetComponent<GameScript>().onTick();
@@ -44,9 +51,25 @@ public class GameTimerScript : MonoBehaviour
             //Debug.Log(timeCount);
             yield return new WaitForSeconds(1f);
         }
+
         End();
     }
 
+    public void togglePause()
+    {
+        if (!paused)
+        {
+            transform.GetChild(1).gameObject.GetComponent<Image>().sprite = pauseButton; //set the button sprite to pause
+            //uiText.color = new Color(52, 250, 0, 255);
+        }
+        else
+        {
+            transform.GetChild(1).gameObject.GetComponent<Image>().sprite = playButton; //set the button sprite to play
+            //uiText.color = new Color(250, 124, 0, 255);
+        }
+
+        paused = !paused;
+    }
     private void UpdateUI(int second)
     {
         uiText.text = string.Format("{0:D2}:{1:D2}", second / 60, second % 60);
