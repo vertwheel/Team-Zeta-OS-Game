@@ -82,7 +82,7 @@ public class GameScript : MonoBehaviour
                 break;
 
             case GameTypes.PriorityQueue:
-                timer.GetComponent<TimerScript>().setTimer(60).begin(); //start the timer at 40 seconds
+                timer.GetComponent<TimerScript>().setTimer(30).begin(); //start the timer at 40 seconds
                 for (int i = 0; i < 8; i++)
                 {
                     GameObject newtask = spawnTask(Random.Range(1, 5), Random.Range(1, 10), false);
@@ -108,13 +108,20 @@ public class GameScript : MonoBehaviour
 
     private void endLevel()
     {
+        GameObject canvas = GameObject.Find("AfterGameCanvas");
         switch (leveltype)
         {
             case GameTypes.FirstComeFirstServe:
                 if (compareLists())
                     Debug.Log("truu");
+                    GameObject panel = canvas.transform.Find("SuccessPanel").gameObject;
+                    panel.SetActive(true);
+                }
                 else
                     Debug.Log("falsee");
+                    GameObject panel = canvas.transform.Find("FailedPanel").gameObject;
+                    panel.SetActive(true);
+                }
                 break;
             case GameTypes.RoundRobin:
                 if (compareLists())
@@ -125,10 +132,18 @@ public class GameScript : MonoBehaviour
             case GameTypes.PriorityQueue:
                 if (compareLists())
                     Debug.Log("truu");
+                    GameObject panel = canvas.transform.Find("SuccessPanel").gameObject;
+                    panel.SetActive(true);
+                }
                 else
                     Debug.Log("falsee");
+                    GameObject panel = canvas.transform.Find("FailedPanel").gameObject;
+                    panel.SetActive(true);
+                }
                 break;
         }
+
+
     }
 
     //Called whenever the clock ticks
