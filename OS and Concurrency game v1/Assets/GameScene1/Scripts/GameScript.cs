@@ -16,6 +16,10 @@ public class GameScript : MonoBehaviour
     private GameObject burstTimeClock; //references the burst timer clock object
     private GameObject quantumTimeClock; //references the time quantum clock object
 
+    private GameObject tick;
+    private GameObject canvas;
+    private GameObject ftick;
+
     private int timeQuantum = 4;
     private bool quantumTimeClockStarted = false;
 
@@ -44,6 +48,16 @@ public class GameScript : MonoBehaviour
         timer = GameObject.Find("Timer"); //get the timer object
         burstTimeClock = GameObject.Find("Burst Timer"); //get the burst time clock
         quantumTimeClock = GameObject.Find("Quantum Clock"); //get the time quantum clock
+
+
+        tick = GameObject.Find("Check");
+        canvas = GameObject.Find("Canvas");
+        canvas.GetComponent<hideandshow>().hide(tick);
+
+        ftick = GameObject.Find("Fcheck");
+        canvas.GetComponent<hideandshow2>().hide(ftick);
+
+       
 
         conveyorBelt.GetComponent<AudioSource>().Play();
         burstTimeClock.GetComponent<GameTimerScript>().setTimer(0).begin();
