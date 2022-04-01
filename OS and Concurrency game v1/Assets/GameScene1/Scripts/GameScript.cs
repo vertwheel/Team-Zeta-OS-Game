@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Linq;
 public class GameScript : MonoBehaviour
 {
     //dont remove the [SerializeField] parts, program doesnt work without them for some reason
@@ -14,10 +15,12 @@ public class GameScript : MonoBehaviour
     private GameObject timer; //references the timer object
     private TMP_Text leveltext;
 
-    [SerializeField] private List<GameObject> correctList; //the intended order of tasks
-    [SerializeField] private List<GameObject> resultList; //the recieved order of tasks, compared to the correct list at the end
-    enum GameTypes { FirstComeFirstServe, RoundRobin }; //stores the types of levels so far, to control spawn and scoring behaviour
-    private GameTypes leveltype = GameTypes.FirstComeFirstServe; //what type of level running currently
+    [SerializeField] private List<GameObject> preList; //the predetermined spawn order of tasks
+    [SerializeField] private List<GameObject> correctList; //the intended result order of tasks
+    [SerializeField] private List<GameObject> resultList; //the recieved result order of tasks, compared to the correct list at the end
+    enum GameTypes { FirstComeFirstServe, PriorityQueue, RoundRobin }; //stores the types of levels so far, to control spawn and scoring behaviour
+    private GameTypes leveltype = GameTypes.PriorityQueue; //what type of level running currently
+    private bool levelEnd = false; //check whether level has reached time 0
 
     // Start is called before the first frame update
     void Start()
@@ -35,9 +38,10 @@ public class GameScript : MonoBehaviour
         }
 
         timer = GameObject.Find("Timer"); //get the timer object
-        timer.GetComponent<TimerScript>().setTimer(40).begin(); //start the timer at 40 seconds
 
         conveyorBelt.GetComponent<AudioSource>().Play();
+
+        startLevel();
     }
 
     // Update is called once per frame
@@ -53,44 +57,120 @@ public class GameScript : MonoBehaviour
         //    Debug.Log(compareLists());
         //}
 
-        if (timer.GetComponent<TimerScript>().getTimeLeft() == 0)
+        if ((timer.GetComponent<TimerScript>().getTimeLeft() == 0) && !levelEnd)
         {
-            //Debug.Log(compareLists());
-            if (compareLists())
-            {
-                leveltext.text = "You win!";
-            } else
-            {
-                leveltext.text = "You lose!";
-            }
+            endLevel();
+            levelEnd = true;
+        }
+    }
+
+    private void startLevel()
+    {
+        switch (leveltype)
+        {
+            case GameTypes.FirstComeFirstServe:
+                timer.GetComponent<TimerScript>().setTimer(40).begin(); //start the timer at 40 seconds
+                break;
+
+            case GameTypes.PriorityQueue:
+                timer.GetComponent<TimerScript>().setTimer(40).begin(); //start the timer at 40 seconds
+                for (int i = 0; i < 8; i++)
+                {
+                    GameObject newtask = spawnTask(Random.Range(1, 3), i, false);
+                    preList.Add(newtask);
+                    newtask.active = false;
+                    //Debug.Log(newtask.GetComponent<TaskScript>().Get_priority());
+                }
+                
+                correctList = preList.OrderBy<GameObject, int>(w => w.GetComponent<TaskScript>().Get_priority()).ToList();
+
+                foreach (GameObject task in preList)
+                {
+                    spawnTask(task, true);
+                }
+                break;
+
+            case GameTypes.RoundRobin:
+                timer.GetComponent<TimerScript>().setTimer(40).begin(); //start the timer at 40 seconds
+                for (int i = 0; i < 8; i++)
+                {
+                    GameObject newtask = spawnTask(i, Random.Range(1, 3), false);
+                    preList.Add(newtask);
+                    newtask.active = false;
+                    //Debug.Log(newtask.GetComponent<TaskScript>().Get_priority());
+                }
+
+                correctList = preList.OrderBy<GameObject, int>(w => w.GetComponent<TaskScript>().Get_burst_time()).ToList();
+
+                foreach (GameObject task in preList)
+                {
+                    spawnTask(task, true);
+                }
+                break;
+        }
+    }
+
+    private void endLevel()
+    {
+        switch (leveltype)
+        {
+            case GameTypes.FirstComeFirstServe:
+                if (compareLists())
+                {
+                    Debug.Log("truu");
+                }
+                else
+                {
+                    Debug.Log("falsee");
+                }
+                break;
+            case GameTypes.RoundRobin:
+                break;
+            case GameTypes.PriorityQueue:
+                if (compareLists())
+                {
+                    Debug.Log("truu");
+                }
+                else
+                {
+                    Debug.Log("falsee");
+                }
+                break;
         }
     }
 
     //Called whenever the clock ticks
-    public void onTick(int maxRandom)
+    public void onTick()
     {
         updateBelt();
 
-        //for having a random delay between spawns
-        //pick a number between 1 and any number, if its 1 then proceed else dont do anything
-        //set maxRandom to 1 for 100% chance to spawn every tick, 2 for 50% chance to spawn every tick, etc
-        int diceroll = Random.Range(1, maxRandom);
-        if (diceroll == 1)
+        switch (leveltype)
         {
-            switch (leveltype)
-            {
-                case GameTypes.FirstComeFirstServe:
-                    if (timer.GetComponent<TimerScript>().getTimeLeft() > 20) //dont spawn anything in the last 20 sec to allow for remaining tasks to be consumed
+            case GameTypes.FirstComeFirstServe:
+                if (timer.GetComponent<TimerScript>().getTimeLeft() > 20) //dont spawn anything in the last 20 sec to allow for remaining tasks to be consumed
+                {
+                    //for having a random delay between spawns
+                    //pick a number between 1 and any number, if its 1 then proceed else dont do anything
+                    //set to 1 for 100% chance to spawn every tick, 2 for 50% chance to spawn every tick, etc
+                    int diceroll = Random.Range(1, 3);
+                    if (diceroll == 1)
                     {
-                        GameObject newtask = spawnTask(Random.Range(1, 3), 0);
+                        GameObject newtask = spawnTask(Random.Range(1, 4), 0, true);
                         if (newtask != null)
                         {
                             correctList.Add(newtask);
                         }
                     }
-                    break;
-            }
+                }
+                break;
+            case GameTypes.PriorityQueue:
+                break;
+            case GameTypes.RoundRobin:
+                break;
+            
         }
+
+        
     }
 
     //move and update the items on the belt
@@ -109,7 +189,7 @@ public class GameScript : MonoBehaviour
             else
             {
                 resultList.Add(taskLast);
-                Destroy(taskLast);
+                taskLast.active = false ; //instead of destroying, deactiveate task
             }
         }
 
@@ -135,6 +215,19 @@ public class GameScript : MonoBehaviour
                     return false;
                 for (int i = 0; i < correctList.Count; i++)
                 {
+                    //if (correctList[i].GetComponent<TaskScript>().Get_ID() != resultList[i].GetComponent<TaskScript>().Get_ID())
+                    //    return false;
+                    if (correctList[i] != resultList[i])
+                        return false;
+                }
+                return true;
+            case GameTypes.PriorityQueue:
+                if (correctList.Count != resultList.Count)
+                    return false;
+                for (int i = 0; i < correctList.Count; i++)
+                {
+                    //if (correctList[i].GetComponent<TaskScript>().Get_ID() != resultList[i].GetComponent<TaskScript>().Get_ID())
+                    //    return false;
                     if (correctList[i] != resultList[i])
                         return false;
                 }
@@ -145,7 +238,7 @@ public class GameScript : MonoBehaviour
     }
 
     //add a task in the next valid position in the process queue
-    GameObject spawnTask(int burstTime, int priority)
+    GameObject spawnTask(int burstTime, int priority, bool addTask)
     {
         foreach (GameObject ap in pqAttachPoints)
         {
@@ -154,8 +247,31 @@ public class GameScript : MonoBehaviour
                 GameObject newTask = Instantiate(taskPrefab, ap.transform.position, Quaternion.identity);
                 newTask.GetComponent<TaskScript>().Set_burst_time(burstTime);
                 newTask.GetComponent<TaskScript>().Set_priority(priority);
-                ap.GetComponent<AttachPointScript>().addTask(newTask);
+                //newTask.GetComponent<TaskScript>().Set_ID(Random.Range(1, 1000));
+                if (addTask)
+                {
+                    ap.GetComponent<AttachPointScript>().addTask(newTask);
+                }
                 return newTask;
+            }
+        }
+        return null;
+    }
+
+    GameObject spawnTask(GameObject task, bool addTask) //assuming the object is inactive
+    {
+        foreach (GameObject ap in pqAttachPoints)
+        {
+            if (ap.GetComponent<AttachPointScript>().attachedTask == null)
+            {
+                //GameObject newTask = Instantiate(taskPrefab, ap.transform.position, Quaternion.identity);
+                task.active = true;
+                if (addTask)
+                {
+                    ap.GetComponent<AttachPointScript>().addTask(task);
+                }
+                
+                return task;
             }
         }
         return null;
