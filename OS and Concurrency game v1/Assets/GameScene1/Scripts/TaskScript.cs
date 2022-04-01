@@ -48,7 +48,8 @@ public class TaskScript : MonoBehaviour
     {
         GetComponent<Renderer>().material.color = mouseOverColor;
     }
- 
+
+//Will hide the tooltip
     void OnMouseExit()
     {
         GetComponent<Renderer>().material.color = originalColor;
@@ -79,6 +80,7 @@ public class TaskScript : MonoBehaviour
         }
     }
 
+    // When mouse enter the tooltip will show
     private void OnMouseOver()
     {
         transform.Find("canvas").gameObject.SetActive(true);
