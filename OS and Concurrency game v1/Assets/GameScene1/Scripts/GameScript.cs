@@ -23,7 +23,7 @@ public class GameScript : MonoBehaviour
     [SerializeField] private List<GameObject> correctList; //the intended result order of tasks
     [SerializeField] private List<GameObject> resultList; //the recieved result order of tasks, compared to the correct list at the end
     enum GameTypes { FirstComeFirstServe, PriorityQueue, RoundRobin }; //stores the types of levels so far, to control spawn and scoring behaviour
-    private GameTypes leveltype = GameTypes.RoundRobin; //what type of level running currently
+    private GameTypes leveltype = GameTypes.PriorityQueue; //what type of level running currently
     private bool levelEnd = false; //check whether level has reached time 0
 
     // Start is called before the first frame update
@@ -78,7 +78,7 @@ public class GameScript : MonoBehaviour
         {
             
             case GameTypes.FirstComeFirstServe:
-                timer.GetComponent<TimerScript>().setTimer(40).begin(); //start the timer at 40 seconds
+                timer.GetComponent<TimerScript>().setTimer(60).begin(); //start the timer at 40 seconds
                 break;
 
             case GameTypes.PriorityQueue:
@@ -108,13 +108,22 @@ public class GameScript : MonoBehaviour
 
     private void endLevel()
     {
+        GameObject canvas = GameObject.Find("AfterGameCanvas");
         switch (leveltype)
         {
             case GameTypes.FirstComeFirstServe:
                 if (compareLists())
+                { 
                     Debug.Log("truu");
+                    GameObject panel = canvas.transform.Find("SuccessPanel").gameObject;
+                    panel.SetActive(true);
+                }
                 else
+                {
                     Debug.Log("falsee");
+                    GameObject panel = canvas.transform.Find("FailedPanel").gameObject;
+                    panel.SetActive(true);
+                }
                 break;
             case GameTypes.RoundRobin:
                 if (compareLists())
@@ -124,11 +133,21 @@ public class GameScript : MonoBehaviour
                 break;
             case GameTypes.PriorityQueue:
                 if (compareLists())
+                { 
                     Debug.Log("truu");
+                    GameObject panel = canvas.transform.Find("SuccessPanel").gameObject;
+                    panel.SetActive(true);
+                }
                 else
+                {
                     Debug.Log("falsee");
+                    GameObject panel = canvas.transform.Find("FailedPanel").gameObject;
+                    panel.SetActive(true);
+                }
                 break;
         }
+
+
     }
 
     //Called whenever the clock ticks
@@ -246,16 +265,6 @@ public class GameScript : MonoBehaviour
                 }
                 return true;
             case GameTypes.PriorityQueue:
-                //if (correctList.Count != resultList.Count)
-                //    return false;
-                //for (int i = 0; i < correctList.Count; i++)
-                //{
-                //    //if (correctList[i].GetComponent<TaskScript>().Get_ID() != resultList[i].GetComponent<TaskScript>().Get_ID())
-                //    //    return false;
-                //    if (correctList[i] != resultList[i])
-                //        return false;
-                //}
-
                 int lastP = resultList[0].GetComponent<TaskScript>().Get_priority();
                 for (int i = 1; i < resultList.Count; i++)
                 {
