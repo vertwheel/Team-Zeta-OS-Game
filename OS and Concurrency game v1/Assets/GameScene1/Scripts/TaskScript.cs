@@ -94,7 +94,7 @@ public class TaskScript : MonoBehaviour
     private void OnMouseOver()
     {
         transform.Find("canvas").gameObject.SetActive(true);
-        transform.GetComponentInChildren<Text>().text = "bt:" + burst_time + "  p:" + priority;
+        transform.GetComponentInChildren<Text>().text = "BT:" + burst_time + '\n' + "P:" + priority;
             
     }
 }

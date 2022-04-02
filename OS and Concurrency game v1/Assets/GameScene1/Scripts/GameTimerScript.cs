@@ -64,13 +64,13 @@ public class GameTimerScript : MonoBehaviour
             GameObject.Find("BottomBelt").GetComponent<BeltScript>().SetScrollSpeedX(0f);
             GameObject.Find("TopBelt").GetComponent<AudioSource>().volume = 0f; //stop belt sound
             //uiText.color = new Color(52, 250, 0, 255);
-        }
+        } 
         else
         {
             transform.GetChild(1).gameObject.GetComponent<Image>().sprite = playButton; //set the button sprite to play
             GameObject.Find("TopBelt").GetComponent<BeltScript>().SetScrollSpeedX(0.15f); //start the belt animation
             GameObject.Find("BottomBelt").GetComponent<BeltScript>().SetScrollSpeedX(0.15f);
-            GameObject.Find("TopBelt").GetComponent<AudioSource>().volume = 0.05f; //start belt sound
+            GameObject.Find("TopBelt").GetComponent<AudioSource>().volume = 0.01f; //start belt sound
             //uiText.color = new Color(250, 124, 0, 255);
         }
 

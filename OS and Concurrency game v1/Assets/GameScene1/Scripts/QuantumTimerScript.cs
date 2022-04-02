@@ -10,7 +10,7 @@ public class QuantumTimerScript : MonoBehaviour
     //[SerializeField] private TMP_Text uiText;
 
     private bool paused = false; //track whether the clock is paused
-
+    private bool skipFirst = true;
     private int timeLeft;
     public Gradient gradient;   
 
@@ -22,7 +22,6 @@ public class QuantumTimerScript : MonoBehaviour
         //uiFillImage.fillAmount = 0f;
 
         //uiFillImage.color = gradient.Evaluate(1f);
-        GameObject.Find("GameObject").GetComponent<GameScript>().quantumTick();
         setTimer(Time);
         begin();
     }
@@ -31,6 +30,7 @@ public class QuantumTimerScript : MonoBehaviour
     public QuantumTimerScript setTimer(int second)
     {
         Time = timeLeft = second;
+
         return this;
     }
 
@@ -42,6 +42,15 @@ public class QuantumTimerScript : MonoBehaviour
 
     private IEnumerator updateTimer()
     {
+        if (timeLeft == (Time))
+        {
+            if (!skipFirst)
+                GameObject.Find("GameObject").GetComponent<GameScript>().quantumTick();
+            
+            else
+                skipFirst = false;
+        }
+        
         while (timeLeft > 0)
         {
             while (paused)
