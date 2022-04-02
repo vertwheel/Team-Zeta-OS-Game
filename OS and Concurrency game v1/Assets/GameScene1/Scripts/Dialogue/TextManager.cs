@@ -9,22 +9,17 @@ public class TextManager : MonoBehaviour
     public Text dialogueText;
     public Animator animatior;
 
-    [SerializeField] private Queue<string> sentences;
+    [SerializeField] private Queue<string> sentences = new Queue<string>();
 
 
     // Start is called before the first frame update
     void Start()
     {
-        sentences = new Queue<string>();
-
-
+        //sentences = new Queue<string>();
     }
 
     public void StartText(TextClass text) {
-
         animatior.SetBool("IsOpen", true);
-
-
 
         nameText.text = text.name;
 
@@ -32,11 +27,8 @@ public class TextManager : MonoBehaviour
         foreach (string sentence in text.sentences) {
 
             sentences.Enqueue(sentence);
-
         }
-
         DisplayNextSentence();
-
     }
 
     public void DisplayNextSentence() {
@@ -46,7 +38,6 @@ public class TextManager : MonoBehaviour
             return;
         }
 
-
         string sentence = sentences.Dequeue();
         dialogueText.text = sentence;
 
@@ -54,7 +45,7 @@ public class TextManager : MonoBehaviour
 
     void EndText() {
         animatior.SetBool("IsOpen", false);
-
+        GameObject.Find("GameObject").GetComponent<GameScript>().startLevel();
     }
 
 

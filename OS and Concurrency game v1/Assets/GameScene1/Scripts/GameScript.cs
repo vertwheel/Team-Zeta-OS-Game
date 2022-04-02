@@ -17,16 +17,21 @@ public class GameScript : MonoBehaviour
     private GameObject timer; //references the timer object
     private GameObject burstTimeClock; //references the burst timer clock object
     private GameObject quantumTimeClock; //references the time quantum clock object
+    private GameObject textManager; //references the text manager object
 
     private int timeQuantum = 4;
     private bool quantumTimeClockStarted = false;
+
+    [SerializeField] public TextClass FCFStext;
+    [SerializeField] public TextClass PQtext;
+    [SerializeField] public TextClass RRtext;
 
     [SerializeField] private List<GameObject> preList; //the predetermined spawn order of tasks
     [SerializeField] private List<GameObject> correctList; //the intended result order of tasks
     [SerializeField] private List<GameObject> resultList; //the recieved result order of tasks, compared to the correct list at the end
     enum GameTypes { FirstComeFirstServe, PriorityQueue, RoundRobin }; //stores the types of levels so far, to control spawn and scoring behaviour
-    private static GameTypes leveltype = GameTypes.RoundRobin; //what type of level running currently
-    private bool levelEnd = false; //check whether level has reached time 0
+    private static GameTypes leveltype = GameTypes.FirstComeFirstServe; //what type of level running currently
+    private bool levelPlaying = false; //check whether level has reached time 0
 
     // Start is called before the first frame update    
     void Start()
@@ -46,10 +51,8 @@ public class GameScript : MonoBehaviour
         timer = GameObject.Find("Timer"); //get the timer object
         burstTimeClock = GameObject.Find("Burst Timer"); //get the burst time clock
         quantumTimeClock = GameObject.Find("Quantum Clock"); //get the time quantum clock
-
-        conveyorBelt.GetComponent<AudioSource>().Play();
-        burstTimeClock.GetComponent<GameTimerScript>().setTimer(0).begin();
-        startLevel();
+        textManager = GameObject.Find("TextManager");
+        startDialogue();
     }
 
     // Update is called once per frame
@@ -60,22 +63,39 @@ public class GameScript : MonoBehaviour
         //{
         //    spawnTask(1,2);
         //}
-        if (Input.GetKeyDown(KeyCode.KeypadEnter))
-        {
-            endLevel();
-        }
+        //if (Input.GetKeyDown(KeyCode.KeypadEnter))
+        //{
+        //    endLevel();
+        //}
 
-        if ((timer.GetComponent<TimerScript>().getTimeLeft() == 0) && !levelEnd)
+        if ((timer.GetComponent<TimerScript>().getTimeLeft() == 0) && levelPlaying)
         {
             endLevel();
-            levelEnd = true;
+            levelPlaying = false;
         }
     }
 
-
-    private void startLevel()
+    private void startDialogue()
+    {
+        switch (leveltype)
+        {
+            case GameTypes.FirstComeFirstServe:
+                textManager.GetComponent<TextManager>().StartText(FCFStext);
+                break;
+            case GameTypes.PriorityQueue:
+                textManager.GetComponent<TextManager>().StartText(PQtext);
+                break;
+            case GameTypes.RoundRobin:
+                textManager.GetComponent<TextManager>().StartText(RRtext);
+                break;
+        }
+    }
+        
+    public void startLevel()
     {
         quantumTimeClock.active = false;
+        conveyorBelt.GetComponent<AudioSource>().Play();
+        burstTimeClock.GetComponent<GameTimerScript>().setTimer(0).begin();
         switch (leveltype)
         {
             case GameTypes.FirstComeFirstServe:
@@ -105,6 +125,7 @@ public class GameScript : MonoBehaviour
                 quantumTimeClock.active = true;
                 break;
         }
+        levelPlaying = true;
     }
 
     private void endLevel()

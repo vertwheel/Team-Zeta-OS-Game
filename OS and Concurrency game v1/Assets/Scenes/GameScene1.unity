@@ -3117,6 +3117,23 @@ MonoBehaviour:
   conveyorBelt: {fileID: 0}
   pqAttachPoints: []
   cbAttachPoints: []
+  FCFStext:
+    name: FCFS
+    sentences:
+    - First come first serve
+    - This is how FCFS works
+    - sas
+    - sasas
+  PQtext:
+    name: PQ
+    sentences:
+    - Priority Queue
+    - 'This is how Queue works '
+  RRtext:
+    name: RR
+    sentences:
+    - Round Robin
+    - 'This is how Round robibt works '
   preList: []
   correctList: []
   resultList: []
@@ -4808,6 +4825,10 @@ PrefabInstance:
     - target: {fileID: 249911047155144432, guid: eb400efddb91ff543bab1bf2d9a8da30, type: 3}
       propertyPath: m_Name
       value: Test button
+      objectReference: {fileID: 0}
+    - target: {fileID: 249911047155144432, guid: eb400efddb91ff543bab1bf2d9a8da30, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 249911047155144433, guid: eb400efddb91ff543bab1bf2d9a8da30, type: 3}
       propertyPath: m_Pivot.x
