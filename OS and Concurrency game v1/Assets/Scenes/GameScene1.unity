@@ -2613,6 +2613,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Quantum Clock
       objectReference: {fileID: 0}
+    - target: {fileID: 8098446210343845004, guid: b3ae419530d53d846923812eac246c53, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8098446210343845007, guid: b3ae419530d53d846923812eac246c53, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3117,18 +3121,36 @@ MonoBehaviour:
   conveyorBelt: {fileID: 0}
   pqAttachPoints: []
   cbAttachPoints: []
+  introtext:
+    name: Introduction
+    sentences:
+    - Welcome to Concurrancy Factory!
+    - This game will help you understand the basic concept behind concurrent programming
+      and how CPU scheduling algorithms work.
+    - 'You will complete levels of increasing difficulty that teach you about different
+      scheduling algorithms such as First Come First Serve (FCFS), Priority Scheduling
+      and the Round-Robin algorithm.
+
+'
   FCFStext:
-    name: FCFS
+    name: First Come First Serve algorithm
     sentences:
-    - First come first serve
-    - This is how FCFS works
-    - sas
-    - sasas
+    - The FCFS algorithm works like you would expect it to, you put boxes that represent
+      tasks onto a conveyor belt which represents the CPU thread, and that box then
+      goes along the conveyor belt into the CPU.
+    - 'You place the boxes in the order that they come in, so the first box to arrive
+      would be the first box to be put on the conveyor belt.
+
+'
   PQtext:
-    name: PQ
+    name: Priority Scheduling algorithm
     sentences:
-    - Priority Queue
-    - 'This is how Queue works '
+    - The priority scheduling algorithm works so that each box has a set priority,
+      and you would then select the box with the highest priority and place it first
+      onto the belt.
+    - So, for example, for three boxes with priorities 1,2, 9, the box with priority
+      one would be placed first onto the belt, then two and then finally the box
+      with priority nine.
   RRtext:
     name: RR
     sentences:
@@ -3282,7 +3304,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: be70e1fcc677d6d4899608b433a86fbe, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.01
+  m_Volume: 0
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -5093,6 +5115,22 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1770419900}
+    - target: {fileID: 6546657549880137015, guid: b66411335812c7c4ca5c8b27c3aac36f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 411
+      objectReference: {fileID: 0}
+    - target: {fileID: 6546657550907785223, guid: b66411335812c7c4ca5c8b27c3aac36f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -359
+      objectReference: {fileID: 0}
+    - target: {fileID: 6546657550907785223, guid: b66411335812c7c4ca5c8b27c3aac36f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 48
+      objectReference: {fileID: 0}
+    - target: {fileID: 6546657550907785464, guid: b66411335812c7c4ca5c8b27c3aac36f, type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: 6546657551105533105, guid: b66411335812c7c4ca5c8b27c3aac36f, type: 3}
       propertyPath: m_Name
       value: TextBox
@@ -5127,11 +5165,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6546657551105533106, guid: b66411335812c7c4ca5c8b27c3aac36f, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 643.489
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 6546657551105533106, guid: b66411335812c7c4ca5c8b27c3aac36f, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 85.7952
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 6546657551105533106, guid: b66411335812c7c4ca5c8b27c3aac36f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5163,7 +5201,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6546657551105533106, guid: b66411335812c7c4ca5c8b27c3aac36f, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -16.2174
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6546657551105533106, guid: b66411335812c7c4ca5c8b27c3aac36f, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -5180,6 +5218,26 @@ PrefabInstance:
     - target: {fileID: 6546657551105533106, guid: b66411335812c7c4ca5c8b27c3aac36f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6546657551105533107, guid: b66411335812c7c4ca5c8b27c3aac36f, type: 3}
+      propertyPath: m_Color.a
+      value: 0.89411765
+      objectReference: {fileID: 0}
+    - target: {fileID: 6546657551400763171, guid: b66411335812c7c4ca5c8b27c3aac36f, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 800
+      objectReference: {fileID: 0}
+    - target: {fileID: 6546657551400763171, guid: b66411335812c7c4ca5c8b27c3aac36f, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6546657551400763171, guid: b66411335812c7c4ca5c8b27c3aac36f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -40.804474
+      objectReference: {fileID: 0}
+    - target: {fileID: 6546657551400763171, guid: b66411335812c7c4ca5c8b27c3aac36f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b66411335812c7c4ca5c8b27c3aac36f, type: 3}

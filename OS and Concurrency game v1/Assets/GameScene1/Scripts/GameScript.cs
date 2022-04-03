@@ -19,18 +19,19 @@ public class GameScript : MonoBehaviour
     private GameObject quantumTimeClock; //references the time quantum clock object
     private GameObject textManager; //references the text manager object
 
-    private int timeQuantum = 4;
-    private bool quantumTimeClockStarted = false;
+    private int timeQuantum = 4; //the length of the time quantum for the round-robin game
+    private bool quantumTimeClockStarted = false; //check whether the time quantum clock has started
 
-    [SerializeField] public TextClass FCFStext;
-    [SerializeField] public TextClass PQtext;
-    [SerializeField] public TextClass RRtext;
+    [SerializeField] public TextClass introtext; //dialogue text for the intro
+    [SerializeField] public TextClass FCFStext; //dialogue text for FCFS
+    [SerializeField] public TextClass PQtext; //dialogue text for Priority Scheduling
+    [SerializeField] public TextClass RRtext; //dialogue text for Round Robin
 
     [SerializeField] private List<GameObject> preList; //the predetermined spawn order of tasks
     [SerializeField] private List<GameObject> correctList; //the intended result order of tasks
     [SerializeField] private List<GameObject> resultList; //the recieved result order of tasks, compared to the correct list at the end
-    enum GameTypes { FirstComeFirstServe, PriorityQueue, RoundRobin }; //stores the types of levels so far, to control spawn and scoring behaviour
-    private static GameTypes leveltype = GameTypes.FirstComeFirstServe; //what type of level running currently
+    enum GameTypes { Intro, FirstComeFirstServe, PriorityQueue, RoundRobin }; //stores the types of levels so far, to control spawn and scoring behaviour
+    private static GameTypes leveltype = GameTypes.Intro; //what type of level running currently
     private bool levelPlaying = false; //check whether level has reached time 0
 
     // Start is called before the first frame update    
@@ -51,7 +52,10 @@ public class GameScript : MonoBehaviour
         timer = GameObject.Find("Timer"); //get the timer object
         burstTimeClock = GameObject.Find("Burst Timer"); //get the burst time clock
         quantumTimeClock = GameObject.Find("Quantum Clock"); //get the time quantum clock
-        textManager = GameObject.Find("TextManager");
+        textManager = GameObject.Find("TextManager"); //get the text manager
+
+        quantumTimeClock.active = false; //deactivate the time quantum clock
+
         startDialogue();
     }
 
@@ -75,10 +79,14 @@ public class GameScript : MonoBehaviour
         }
     }
 
+    //start the dialogue for the corrosponding level
     private void startDialogue()
     {
         switch (leveltype)
         {
+            case GameTypes.Intro:
+                textManager.GetComponent<TextManager>().StartText(introtext);
+                break;
             case GameTypes.FirstComeFirstServe:
                 textManager.GetComponent<TextManager>().StartText(FCFStext);
                 break;
@@ -87,34 +95,45 @@ public class GameScript : MonoBehaviour
                 break;
             case GameTypes.RoundRobin:
                 textManager.GetComponent<TextManager>().StartText(RRtext);
+                quantumTimeClock.active = true;
                 break;
         }
     }
-        
+
+    //prepare the level and start the gameplay behaviour for the corrosponding level
     public void startLevel()
     {
-        quantumTimeClock.active = false;
-        conveyorBelt.GetComponent<AudioSource>().Play();
-        burstTimeClock.GetComponent<GameTimerScript>().setTimer(0).begin();
+        conveyorBelt.GetComponent<AudioSource>().Play(); //start belt sound
+        GameObject.Find("TopBelt").GetComponent<AudioSource>().volume = 0.01f; 
+
+        burstTimeClock.GetComponent<GameTimerScript>().setTimer(0).begin(); //start the burst time clock
+
+        conveyorBelt.GetComponent<BeltScript>().SetScrollSpeedX(0.15f); //start the belt animation
+        GameObject.Find("BottomBelt").GetComponent<BeltScript>().SetScrollSpeedX(0.15f);
+
         switch (leveltype)
         {
+            case GameTypes.Intro:
+                endLevel();
+                break;
+
             case GameTypes.FirstComeFirstServe:
                 timer.GetComponent<TimerScript>().setTimer(40).begin(); //start the timer at 40 seconds
                 break;
 
             case GameTypes.PriorityQueue:
                 timer.GetComponent<TimerScript>().setTimer(60).begin(); //start the timer at 60 seconds
-                for (int i = 0; i < 8; i++)
+
+                for (int i = 0; i < 8; i++) //prepare a set of random tasks, but keep them deactivated
                 {
                     GameObject newtask = spawnTask(Random.Range(1, 5), Random.Range(1, 10), false);
                     preList.Add(newtask);
                     newtask.active = false;
-                    //Debug.Log(newtask.GetComponent<TaskScript>().Get_priority());
                 }
                 
                 //correctList = preList.OrderBy<GameObject, int>(w => w.GetComponent<TaskScript>().Get_priority()).ToList();
 
-                foreach (GameObject task in preList)
+                foreach (GameObject task in preList) //spawn all of the tasks
                 {
                     spawnTask(task, true);
                 }
@@ -128,21 +147,24 @@ public class GameScript : MonoBehaviour
         levelPlaying = true;
     }
 
+    //end the corrosponding level
     private void endLevel()
     {
         GameObject canvas = GameObject.Find("AfterGameCanvas");
         switch (leveltype)
         {
+            case GameTypes.Intro:
+                leveltype = GameTypes.FirstComeFirstServe;
+                SceneManager.LoadScene("GameScene1");
+                break;
             case GameTypes.FirstComeFirstServe:
                 if (compareLists())
                 { 
-                    Debug.Log("truu");
                     GameObject panel = canvas.transform.Find("SuccessPanel").gameObject;
                     panel.SetActive(true);
                 }
                 else
                 {
-                    Debug.Log("falsee");
                     GameObject panel = canvas.transform.Find("FailedPanel").gameObject;
                     panel.SetActive(true);
                 }
@@ -150,13 +172,11 @@ public class GameScript : MonoBehaviour
             case GameTypes.RoundRobin:
                 if (compareLists())
                 {
-                    Debug.Log("truu");
                     GameObject panel = canvas.transform.Find("SuccessPanel").gameObject;
                     panel.SetActive(true);
                 } 
                 else
                 {
-                    Debug.Log("falsee");
                     GameObject panel = canvas.transform.Find("FailedPanel").gameObject;
                     panel.SetActive(true);
                 }
@@ -165,13 +185,11 @@ public class GameScript : MonoBehaviour
             case GameTypes.PriorityQueue:
                 if (compareLists())
                 { 
-                    Debug.Log("truu");
                     GameObject panel = canvas.transform.Find("SuccessPanel").gameObject;
                     panel.SetActive(true);
                 }
                 else
                 {
-                    Debug.Log("falsee");
                     GameObject panel = canvas.transform.Find("FailedPanel").gameObject;
                     panel.SetActive(true);
                 }
@@ -179,6 +197,7 @@ public class GameScript : MonoBehaviour
         }
     }
 
+    //load the next level
     public void loadNext()
     {
         switch (leveltype)
@@ -239,19 +258,9 @@ public class GameScript : MonoBehaviour
 
     public void quantumTick()
     {
-        //Debug.Log("Before:");
-        //foreach (GameObject task in correctList)
-        //{
-        //    Debug.Log(task.GetComponent<TaskScript>().Get_burst_time());
-        //}
         GameObject firstTask = correctList[resultList.Count];
         correctList.RemoveAt(resultList.Count);
         correctList.Insert(correctList.Count, firstTask);
-        //Debug.Log("After:");
-        //foreach (GameObject task in correctList)
-        //{
-        //    Debug.Log(task.GetComponent<TaskScript>().Get_burst_time());
-        //}
     }
 
     //move and update the items on the belt
