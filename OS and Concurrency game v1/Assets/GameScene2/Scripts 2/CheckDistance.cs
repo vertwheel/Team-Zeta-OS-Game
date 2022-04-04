@@ -24,7 +24,7 @@ public class CheckDistance : MonoBehaviour
     {
         timer = GameObject.Find("Timer"); //get the timer object
         textManager = GameObject.Find("TextManager"); //get the text manager
-        timer.GetComponent<Timer2Script>().setTimer(30).begin(); //start the timer at 30 seconds
+        timer.GetComponent<Timer2Script>().setTimer(120).begin(); //start the timer at 30 seconds
         textManager.GetComponent<TextManager>().StartText(introtext);
 
     }
@@ -61,7 +61,7 @@ public class CheckDistance : MonoBehaviour
         HideAnswer1.SetActive(false);
         HideAnswer2.SetActive(false);
         HideAnswer3.SetActive(false);
-        timer.GetComponent<Timer2Script>().setTimer(30).begin(); //Reset the timer to 30s
+        timer.GetComponent<Timer2Script>().setTimer(120).begin(); //Reset the timer to 30s
     }
 
 
