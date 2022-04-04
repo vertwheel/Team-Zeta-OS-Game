@@ -63,10 +63,12 @@ public class Timer2Script : MonoBehaviour
 
     }
 
-    //public int getTimeLeft()
-    //{
-    //    return timeLeft;
-    //}
+
+    public int getTimeLeft()
+    {
+        return timeLeft;
+    }
+
     void OnMouseExit()
     {
         transform.Find("canvas").gameObject.SetActive(false);

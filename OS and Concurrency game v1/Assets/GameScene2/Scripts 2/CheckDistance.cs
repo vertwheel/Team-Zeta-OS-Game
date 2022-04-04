@@ -27,8 +27,9 @@ public class CheckDistance : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (timer.GetComponent<TimerScript>().getTimeLeft() == 0) 
+        if (timer.GetComponent<Timer2Script>().getTimeLeft() == 0) 
         {
+            Debug.Log("time 0");
             levelFailed();
         }
        
@@ -67,12 +68,12 @@ public class CheckDistance : MonoBehaviour
 
     }
 
-    private void levelSucess()
-    {
-        GameObject canvas = GameObject.Find("AfterGameCanva2");
-        GameObject panel = canvas.transform.Find("SuccessPanel2").gameObject;
-        panel.SetActive(true);
+    //private void levelSucess()
+    //{
+    //    GameObject canvas = GameObject.Find("AfterGameCanva2");
+    //    GameObject panel = canvas.transform.Find("SuccessPanel2").gameObject;
+    //    panel.SetActive(true);
 
-    }
+    //}
 
 }
