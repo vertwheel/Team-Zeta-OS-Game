@@ -44,7 +44,7 @@ public class GameScript : MonoBehaviour
     [SerializeField] public List<GameObject> correctList; //the intended result order of tasks
     [SerializeField] private List<GameObject> resultList; //the recieved result order of tasks, compared to the correct list at the end
     enum GameTypes { Intro, FirstComeFirstServe, PriorityQueue, RoundRobin }; //stores the types of levels so far, to control spawn and scoring behaviour
-    private static GameTypes leveltype = GameTypes.FirstComeFirstServe; //what type of level running currently
+    private static GameTypes leveltype = GameTypes.RoundRobin; //what type of level running currently
     private bool levelPlaying = false; //check whether level has reached time 0
 
     // Start is called before the first frame update    
@@ -147,7 +147,7 @@ public class GameScript : MonoBehaviour
 
                 for (int i = 0; i < 8; i++) //prepare a set of random tasks, but keep them deactivated
                 {
-                    GameObject newtask = spawnTask(Random.Range(1, 5), Random.Range(1, 10), false);
+                    GameObject newtask = spawnTask(Random.Range(2, 5), Random.Range(1, 10), false);
                     preList.Add(newtask);
                     newtask.active = false;
                 }
