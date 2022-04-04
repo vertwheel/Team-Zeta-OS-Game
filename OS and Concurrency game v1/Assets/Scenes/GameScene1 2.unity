@@ -5542,6 +5542,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TextBox
       objectReference: {fileID: 0}
+    - target: {fileID: 6546657551105533105, guid: b66411335812c7c4ca5c8b27c3aac36f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6546657551105533106, guid: b66411335812c7c4ca5c8b27c3aac36f, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
