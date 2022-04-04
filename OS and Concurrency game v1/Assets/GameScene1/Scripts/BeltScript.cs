@@ -10,7 +10,7 @@ using UnityEngine.UI;
 public class BeltScript : MonoBehaviour
 {
     // Scroll texture across object based on time 
-    private float scrollSpeedX = 0.15f, scrollSpeedY = 0f;
+    private float scrollSpeedX = 0.5f, scrollSpeedY = 0f;
     Renderer rend;
 
     // Get method for value of scroll speed on x axis
@@ -28,7 +28,7 @@ public class BeltScript : MonoBehaviour
     void Start()
     {
         rend = GetComponent<Renderer> ();
-        rend.material.mainTexture.wrapMode = TextureWrapMode.Repeat;
+   //     rend.material.mainTexture.wrapMode = TextureWrapMode.Repeat;
     }
 
     void Update()
