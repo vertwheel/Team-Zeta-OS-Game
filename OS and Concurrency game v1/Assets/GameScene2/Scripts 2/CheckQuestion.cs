@@ -1,4 +1,5 @@
-//
+// For gamescene2
+// Checks which question is active on the scene right now
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,7 +23,9 @@ public class CheckQuestion : MonoBehaviour
         
     }
 
-
+    // Checks which question is active on the scene right now
+    // Call Done methods in the CheckDistance
+    // Used for the button
     public void CheckQuestions()
     {
         if (Question1.activeSelf == true)
