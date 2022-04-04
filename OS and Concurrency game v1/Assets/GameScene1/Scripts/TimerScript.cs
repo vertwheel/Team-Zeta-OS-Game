@@ -14,7 +14,7 @@ public class TimerScript : MonoBehaviour
 
     public int Time { get; private set; }
 
-    private void reset()
+    public void reset()
     {
         uiText.text = "00:00";
         uiFillImage.fillAmount = 0f;

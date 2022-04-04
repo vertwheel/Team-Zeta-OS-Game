@@ -7,7 +7,7 @@ public class CheckDistance : MonoBehaviour
 
     [SerializeField] public List<Transform> answerList = new List<Transform>();
     [SerializeField] public List<string> answerName = new List<string>();
-    [SerializeField] public List<bool> answerRight = new List<bool>();
+    public List<bool> answerRight = new List<bool>();
     [SerializeField] GameObject HideQuestion;
     [SerializeField] GameObject ShowNextQuestion;
     [SerializeField] GameObject HideAnswer1;
@@ -34,19 +34,17 @@ public class CheckDistance : MonoBehaviour
                 Debug.Log("Wrong");
                 return;
             }
-            if (b == true)
-            {
-                Debug.Log("Right");
-                HideQuestion.SetActive(false);
-                ShowNextQuestion.SetActive(true);
-                HideAnswer1.SetActive(false);
-                HideAnswer2.SetActive(false);
-                HideAnswer3.SetActive(false);
-            }
 
         }
         Debug.Log("right");
+        HideQuestion.SetActive(false);
+        ShowNextQuestion.SetActive(true);
+        HideAnswer1.SetActive(false);
+        HideAnswer2.SetActive(false);
+        HideAnswer3.SetActive(false);
         //answerList.Clear();
         //answerName.Clear();
     }
+
+
 }
