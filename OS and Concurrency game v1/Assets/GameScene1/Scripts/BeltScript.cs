@@ -38,7 +38,6 @@ public class BeltScript : MonoBehaviour
         rend.material.mainTextureOffset = new Vector2(offsetX, offsetY);
     }
     
-    
 
     //Will hide the tooltip
     //void OnMouseExit()
@@ -50,6 +49,5 @@ public class BeltScript : MonoBehaviour
     //{
       //  transform.Find("canvas").gameObject.SetActive(true);
       //  transform.GetComponentInChildren<Text>().text = "CPU box";
-
 //    }
 }

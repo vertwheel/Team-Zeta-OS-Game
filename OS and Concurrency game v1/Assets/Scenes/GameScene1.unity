@@ -3132,14 +3132,16 @@ MonoBehaviour:
       and the Round-Robin algorithm.
 
 '
+    - This is represented by a conveyor belt in a factory. You put boxes that represent
+      tasks onto a conveyor belt which represents the CPU thread, and that box then
+      goes along the conveyor belt into the CPU.
   FCFStext:
     name: First Come First Serve algorithm
     sentences:
-    - The FCFS algorithm works like you would expect it to, you put boxes that represent
-      tasks onto a conveyor belt which represents the CPU thread, and that box then
-      goes along the conveyor belt into the CPU.
-    - 'You place the boxes in the order that they come in, so the first box to arrive
-      would be the first box to be put on the conveyor belt.
+    - The FCFS algorithm works like you would expect it to, you place the boxes in
+      the order that they come in.
+    - 'So the first box to arrive would be the first box to be put on the conveyor
+      belt, and the next arriving is on the belt.
 
 '
   PQtext:
@@ -5033,6 +5035,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CPU1
       objectReference: {fileID: 0}
+    - target: {fileID: 4640576513636191944, guid: 32b2ce136aeed6440ad38d1c1e6b31d3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.119999886
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 32b2ce136aeed6440ad38d1c1e6b31d3, type: 3}
 --- !u!1001 &6242162536843076245
@@ -5120,8 +5126,12 @@ PrefabInstance:
       value: 411
       objectReference: {fileID: 0}
     - target: {fileID: 6546657550907785223, guid: b66411335812c7c4ca5c8b27c3aac36f, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 296.1281
+      objectReference: {fileID: 0}
+    - target: {fileID: 6546657550907785223, guid: b66411335812c7c4ca5c8b27c3aac36f, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -359
+      value: -290.93597
       objectReference: {fileID: 0}
     - target: {fileID: 6546657550907785223, guid: b66411335812c7c4ca5c8b27c3aac36f, type: 3}
       propertyPath: m_AnchoredPosition.y

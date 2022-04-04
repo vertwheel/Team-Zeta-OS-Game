@@ -210,10 +210,14 @@ public class GameScript : MonoBehaviour
                 leveltype = GameTypes.RoundRobin;
                 SceneManager.LoadScene("GameScene1");
                 break;
+            case GameTypes.RoundRobin:
+                leveltype = GameTypes.Intro;
+                SceneManager.LoadScene("Start Menu");
+                break;
         }
     }
 
-    //Called whenever the clock ticks
+    //called whenever the clock ticks
     public void onTick()
     {
         updateBelt();
@@ -229,7 +233,7 @@ public class GameScript : MonoBehaviour
                     int diceroll = Random.Range(1, 3);
                     if (diceroll == 1)
                     {
-                        GameObject newtask = spawnTask(Random.Range(2, 5), 0, true);
+                        GameObject newtask = spawnTask(Random.Range(2, 5), 0, true);  //spawn a task with a random burst time
                         if (newtask != null)
                         {
                             correctList.Add(newtask);
@@ -242,11 +246,11 @@ public class GameScript : MonoBehaviour
             case GameTypes.RoundRobin:
                 if (timer.GetComponent<TimerScript>().getTimeLeft() > 30) //dont spawn anything in the last 30 sec to allow for remaining tasks to be consumed
                 {
-                    if (timer.GetComponent<TimerScript>().getTimeLeft() % 10 == 9)
+                    if (timer.GetComponent<TimerScript>().getTimeLeft() % 10 == 9) //spawn every 10 secs
                     {
                         for (int i = 0; i < 2; i++)
                         {
-                            GameObject newtask = spawnTask(Random.Range(4, 8), 0, true);
+                            GameObject newtask = spawnTask(Random.Range(4, 8), 0, true); //spawn 2 tasks with random burst times
                             if (newtask != null)
                                 correctList.Add(newtask);
                         }
@@ -256,6 +260,7 @@ public class GameScript : MonoBehaviour
         } 
     }
 
+    //called whenever the quantum clock completes one cycle
     public void quantumTick()
     {
         GameObject firstTask = correctList[resultList.Count];
@@ -279,31 +284,32 @@ public class GameScript : MonoBehaviour
             }
         }
 
-        GameObject apLast = cbAttachPoints[cbAttachPoints.Count - 1];
         //When there is a task at the end of the belt
+        GameObject apLast = cbAttachPoints[cbAttachPoints.Count - 1];
         if (apLast.GetComponent<AttachPointScript>().attachedTask != null)
         {
-            if ((leveltype == GameTypes.RoundRobin) && !quantumTimeClockStarted)
+            if ((leveltype == GameTypes.RoundRobin) && !quantumTimeClockStarted) //start the quantum clock when the first task hits the end of the belt
             {
                 quantumTimeClockStarted = true;
                 quantumTimeClock.GetComponent<QuantumTimerScript>().setTimer(timeQuantum).begin();
             }
-            GameObject taskLast = apLast.GetComponent<AttachPointScript>().attachedTask;
-            if (taskLast.GetComponent<TaskScript>().Get_burst_time() > 1)
+
+            GameObject taskLast = apLast.GetComponent<AttachPointScript>().attachedTask; 
+            if (taskLast.GetComponent<TaskScript>().Get_burst_time() > 1) //decrement the task at the end of the belt by 1 BT
             {
                 taskLast.GetComponent<TaskScript>().Set_burst_time(taskLast.GetComponent<TaskScript>().Get_burst_time() - 1);
                 taskLast.transform.SetPositionAndRotation(taskLast.transform.position + new Vector3(Random.Range(-0.2f, 0.2f), Random.Range(-0.2f, 0.2f)), taskLast.transform.rotation);
             }
-            else
+            else //"consume" the task
             {
-                resultList.Add(taskLast);
+                resultList.Add(taskLast); 
                 apLast.GetComponent<AttachPointScript>().removeTask();
-                taskLast.active = false; //instead of destroying, deactiveate task
+                taskLast.active = false; //instead of destroying, deactivate task
             }
         }
-
     }
 
+    //calculate whether the player has passed or failed the corrosponding level
     private bool compareLists()
     {
         switch (leveltype)
@@ -362,13 +368,13 @@ public class GameScript : MonoBehaviour
         return null;
     }
 
+    //add an inactive task in the next valid position in the process queue
     GameObject spawnTask(GameObject task, bool addTask) //assuming the object is inactive
     {
         foreach (GameObject ap in pqAttachPoints)
         {
             if (ap.GetComponent<AttachPointScript>().attachedTask == null)
             {
-                //GameObject newTask = Instantiate(taskPrefab, ap.transform.position, Quaternion.identity);
                 task.active = true;
                 if (addTask)
                 {
