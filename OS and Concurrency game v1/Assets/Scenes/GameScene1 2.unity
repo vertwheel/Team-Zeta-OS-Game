@@ -568,7 +568,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   introtext:
-    name: 
+    name: Coding game
     sentences:
     - Please drag the solutions to the blank spaces.
     - Press the check button when finished with the question.The next question will

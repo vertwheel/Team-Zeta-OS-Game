@@ -3154,10 +3154,15 @@ MonoBehaviour:
       one would be placed first onto the belt, then two and then finally the box
       with priority nine.
   RRtext:
-    name: RR
+    name: Round-Robin algorithm
     sentences:
-    - Round Robin
-    - 'This is how Round robibt works '
+    - The round-robin algorithm aims to distribute time between boxes. The clock
+      over the CPU is the Time Quantum Clock. It states how long a task can remain
+      at the front of the queue.
+    - When the time quantum clock runs out the task at the front of the belt must
+      be put at the back of the queue. Apart from this, the same rules as FCFS apply.
+    - To help with this, the system clock (in green) comes with a pause button, to
+      stop the belt, so you can move boxes around in peace.
   preList: []
   correctList: []
   resultList: []
