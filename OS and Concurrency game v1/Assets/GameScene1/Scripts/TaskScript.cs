@@ -60,19 +60,19 @@ public class TaskScript : MonoBehaviour
     {
         GetComponent<Renderer>().material.color = mouseOverColor;
     }
- 
+
     void OnMouseExit()
     {
         GetComponent<Renderer>().material.color = originalColor;
         transform.Find("canvas").gameObject.SetActive(false);
     }
- 
+
     void OnMouseDown()
     {
         distance = Vector3.Distance(transform.position, Camera.main.transform.position);
         dragging = true;
     }
- 
+
     void OnMouseUp()
     {
         dragging = false;
@@ -80,7 +80,7 @@ public class TaskScript : MonoBehaviour
 
 
 
-// Update is called once per frame
+    // Update is called once per frame
     void Update()
     {
         if (dragging)
@@ -94,7 +94,7 @@ public class TaskScript : MonoBehaviour
     private void OnMouseOver()
     {
         transform.Find("canvas").gameObject.SetActive(true);
-        transform.GetComponentInChildren<Text>().text = "BT:" + burst_time + '\n' + "P:" + priority;
-            
+        transform.GetComponentInChildren<Text>().text = "bt:" + burst_time + "  p:" + priority;
+
     }
 }

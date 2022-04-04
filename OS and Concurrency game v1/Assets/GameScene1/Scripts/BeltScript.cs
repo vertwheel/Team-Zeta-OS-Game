@@ -16,9 +16,9 @@ public class BeltScript : MonoBehaviour
     // Get method for value of scroll speed on x axis
     public float GetScrollSpeedX()
     {
-        return scrollSpeedX; 
+        return scrollSpeedX;
     }
-    
+
     // Method to change scroll speed on x axis from other classes
     public void SetScrollSpeedX(float newScrollSpeedX)
     {
@@ -27,8 +27,8 @@ public class BeltScript : MonoBehaviour
 
     void Start()
     {
-        rend = GetComponent<Renderer> ();
-        rend.material.mainTexture.wrapMode = TextureWrapMode.Repeat;
+        rend = GetComponent<Renderer>();
+        //rend.material.mainTexture.wrapMode = TextureWrapMode.Repeat;
     }
 
     void Update()
@@ -38,6 +38,8 @@ public class BeltScript : MonoBehaviour
         rend.material.mainTextureOffset = new Vector2(offsetX, offsetY);
     }
     
+
+
 
     //Will hide the tooltip
     //void OnMouseExit()
