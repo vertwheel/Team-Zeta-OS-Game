@@ -27,7 +27,11 @@ public class CheckDistance : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (timer.GetComponent<TimerScript>().getTimeLeft() == 0) 
+        {
+            levelFailed();
+        }
+       
     }
 
     // check answer is correct or not 
@@ -38,6 +42,7 @@ public class CheckDistance : MonoBehaviour
             if(b==false)
             {
                 Debug.Log("Wrong");
+                levelFailed();
                 return;
                 // nothing will happen clock will still counting down
             }
@@ -52,4 +57,22 @@ public class CheckDistance : MonoBehaviour
         HideAnswer3.SetActive(false);
         timer.GetComponent<Timer2Script>().setTimer(30).begin(); //Reset the timer to 30s
     }
+
+
+    private void levelFailed ()
+    {
+        GameObject canvas = GameObject.Find("AfterGameCanva2");
+        GameObject panel = canvas.transform.Find("FailedPanel2").gameObject;
+        panel.SetActive(true);
+
+    }
+
+    private void levelSucess()
+    {
+        GameObject canvas = GameObject.Find("AfterGameCanva2");
+        GameObject panel = canvas.transform.Find("SuccessPanel2").gameObject;
+        panel.SetActive(true);
+
+    }
+
 }
