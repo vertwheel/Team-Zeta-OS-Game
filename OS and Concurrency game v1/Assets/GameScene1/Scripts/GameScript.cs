@@ -13,7 +13,7 @@ public class GameScript : MonoBehaviour
     [SerializeField] private List<GameObject> pqAttachPoints; //references the process queue's attachment points
     [SerializeField] private List<GameObject> cbAttachPoints; //references the conveyor belt's attachment points
     private GameObject timer; //references the timer object
-    private TMP_Text leveltext;
+    private GameObject burstTimeClock; //references the burst timer clock object
 
     [SerializeField] private List<GameObject> preList; //the predetermined spawn order of tasks
     [SerializeField] private List<GameObject> correctList; //the intended result order of tasks
@@ -38,9 +38,11 @@ public class GameScript : MonoBehaviour
         }
 
         timer = GameObject.Find("Timer"); //get the timer object
+        burstTimeClock = GameObject.Find("Burst Timer"); //get the burst time clock
 
         conveyorBelt.GetComponent<AudioSource>().Play();
 
+        burstTimeClock.GetComponent<GameTimerScript>().setTimer(0).begin();
         startLevel();
     }
 
@@ -52,10 +54,10 @@ public class GameScript : MonoBehaviour
         //{
         //    spawnTask(1,2);
         //}
-        //if (Input.GetKeyDown(KeyCode.KeypadEnter))
-        //{
-        //    Debug.Log(compareLists());
-        //}
+        if (Input.GetKeyDown(KeyCode.KeypadEnter))
+        {
+            Debug.Log(compareLists());
+        }
 
         if ((timer.GetComponent<TimerScript>().getTimeLeft() == 0) && !levelEnd)
         {
@@ -63,6 +65,7 @@ public class GameScript : MonoBehaviour
             levelEnd = true;
         }
     }
+
 
     private void startLevel()
     {
@@ -73,16 +76,16 @@ public class GameScript : MonoBehaviour
                 break;
 
             case GameTypes.PriorityQueue:
-                timer.GetComponent<TimerScript>().setTimer(40).begin(); //start the timer at 40 seconds
+                timer.GetComponent<TimerScript>().setTimer(30).begin(); //start the timer at 40 seconds
                 for (int i = 0; i < 8; i++)
                 {
-                    GameObject newtask = spawnTask(Random.Range(1, 3), i, false);
+                    GameObject newtask = spawnTask(Random.Range(1, 5), Random.Range(1, 10), false);
                     preList.Add(newtask);
                     newtask.active = false;
                     //Debug.Log(newtask.GetComponent<TaskScript>().Get_priority());
                 }
                 
-                correctList = preList.OrderBy<GameObject, int>(w => w.GetComponent<TaskScript>().Get_priority()).ToList();
+                //correctList = preList.OrderBy<GameObject, int>(w => w.GetComponent<TaskScript>().Get_priority()).ToList();
 
                 foreach (GameObject task in preList)
                 {
@@ -112,16 +115,21 @@ public class GameScript : MonoBehaviour
 
     private void endLevel()
     {
+        GameObject canvas = GameObject.Find("AfterGameCanvas");
         switch (leveltype)
         {
             case GameTypes.FirstComeFirstServe:
                 if (compareLists())
                 {
                     Debug.Log("truu");
+                    GameObject panel = canvas.transform.Find("SuccessPanel").gameObject;
+                    panel.SetActive(true);
                 }
                 else
                 {
                     Debug.Log("falsee");
+                    GameObject panel = canvas.transform.Find("FailedPanel").gameObject;
+                    panel.SetActive(true);
                 }
                 break;
             case GameTypes.RoundRobin:
@@ -130,13 +138,19 @@ public class GameScript : MonoBehaviour
                 if (compareLists())
                 {
                     Debug.Log("truu");
+                    GameObject panel = canvas.transform.Find("SuccessPanel").gameObject;
+                    panel.SetActive(true);
                 }
                 else
                 {
                     Debug.Log("falsee");
+                    GameObject panel = canvas.transform.Find("FailedPanel").gameObject;
+                    panel.SetActive(true);
                 }
                 break;
         }
+
+
     }
 
     //Called whenever the clock ticks
@@ -222,14 +236,26 @@ public class GameScript : MonoBehaviour
                 }
                 return true;
             case GameTypes.PriorityQueue:
-                if (correctList.Count != resultList.Count)
-                    return false;
-                for (int i = 0; i < correctList.Count; i++)
+                //if (correctList.Count != resultList.Count)
+                //    return false;
+                //for (int i = 0; i < correctList.Count; i++)
+                //{
+                //    //if (correctList[i].GetComponent<TaskScript>().Get_ID() != resultList[i].GetComponent<TaskScript>().Get_ID())
+                //    //    return false;
+                //    if (correctList[i] != resultList[i])
+                //        return false;
+                //}
+
+                int lastP = resultList[0].GetComponent<TaskScript>().Get_priority();
+                for (int i = 1; i < resultList.Count; i++)
                 {
-                    //if (correctList[i].GetComponent<TaskScript>().Get_ID() != resultList[i].GetComponent<TaskScript>().Get_ID())
-                    //    return false;
-                    if (correctList[i] != resultList[i])
+                    if (resultList[i].GetComponent<TaskScript>().Get_priority() < lastP)
+                    {
                         return false;
+                    } else
+                    {
+                        lastP = resultList[i].GetComponent<TaskScript>().Get_priority();
+                    }
                 }
                 return true;
             default:
