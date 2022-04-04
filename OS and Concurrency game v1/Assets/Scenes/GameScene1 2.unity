@@ -531,6 +531,7 @@ GameObject:
   - component: {fileID: 246932199}
   - component: {fileID: 246932198}
   - component: {fileID: 246932197}
+  - component: {fileID: 246932200}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -602,9 +603,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1810663282}
-        m_TargetAssemblyTypeName: CheckDistance, Assembly-CSharp
-        m_MethodName: Done
+      - m_Target: {fileID: 246932200}
+        m_TargetAssemblyTypeName: CheckQuestion, Assembly-CSharp
+        m_MethodName: CheckQuestions
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -652,6 +653,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 246932195}
   m_CullTransparentMesh: 1
+--- !u!114 &246932200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 246932195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e31cc2c6f91584e3a8ec282450d948a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Question1: {fileID: 1810663278}
+  Question2: {fileID: 738341605}
+  Question3: {fileID: 1697697524}
 --- !u!1 &311283553
 GameObject:
   m_ObjectHideFlags: 0
@@ -670,7 +686,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &311283554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1049,7 +1065,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &738341606
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1132,8 +1148,11 @@ MonoBehaviour:
   - five
   - six
   answerRight: 010101
-  Question1: {fileID: 0}
-  answers: {fileID: 0}
+  HideQuestion: {fileID: 738341605}
+  NextShow: {fileID: 1697697524}
+  HideAnswer1: {fileID: 1679297545}
+  HideAnswer2: {fileID: 371703374}
+  HideAnswer3: {fileID: 1800911008}
 --- !u!1 &745443298
 GameObject:
   m_ObjectHideFlags: 0
@@ -1804,7 +1823,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1013173373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2084,7 +2103,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1450754757
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2431,7 +2450,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1697697525
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2476,8 +2495,11 @@ MonoBehaviour:
   - eight
   - nine
   answerRight: 010101
-  Question1: {fileID: 1697697524}
-  answers: {fileID: 825628986}
+  HideQuestion: {fileID: 1697697524}
+  NextShow: {fileID: 312855723}
+  HideAnswer1: {fileID: 1155049966}
+  HideAnswer2: {fileID: 73644465}
+  HideAnswer3: {fileID: 2114290852}
 --- !u!114 &1697697527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2900,9 +2922,12 @@ MonoBehaviour:
   - one
   - two
   - three
-  answerRight: 010101
-  Question1: {fileID: 1810663278}
-  answers: {fileID: 825628986}
+  answerRight: 000000
+  HideQuestion: {fileID: 1810663278}
+  NextShow: {fileID: 738341605}
+  HideAnswer1: {fileID: 825628986}
+  HideAnswer2: {fileID: 1765262121}
+  HideAnswer3: {fileID: 816479347}
 --- !u!1 &1967098068
 GameObject:
   m_ObjectHideFlags: 0

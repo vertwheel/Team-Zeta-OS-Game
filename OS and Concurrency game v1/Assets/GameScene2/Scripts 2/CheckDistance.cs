@@ -11,9 +11,9 @@ public class CheckDistance : MonoBehaviour
     public List<Transform> answerList = new List<Transform>();
     public List<string> answerName = new List<string>();
     public List<bool> answerRight = new List<bool>();
-    [SerializeField] GameObject HideQuestion;
-    [SerializeField] GameObject NextShow;
-    [SerializeField] GameObject HideAnswer1;
+    [SerializeField] GameObject HideQuestion;          //Hide the question from the scene
+    [SerializeField] GameObject NextShow;                  // Question transition
+    [SerializeField] GameObject HideAnswer1;               // Question answers that wants to hide
     [SerializeField] GameObject HideAnswer2;
     [SerializeField] GameObject HideAnswer3;
     // Start is called before the first frame update
@@ -44,6 +44,7 @@ public class CheckDistance : MonoBehaviour
         // if all answer correct actions below will happen 
         Debug.Log("right");
         HideQuestion.SetActive(false);
+        NextShow.SetActive(true);
         HideAnswer1.SetActive(false);
         HideAnswer2.SetActive(false);
         HideAnswer3.SetActive(false);
