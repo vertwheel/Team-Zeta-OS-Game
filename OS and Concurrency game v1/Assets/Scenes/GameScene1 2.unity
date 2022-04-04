@@ -570,9 +570,9 @@ MonoBehaviour:
   introtext:
     name: 
     sentences:
-    - text 1 test
-    - 2
-    - 3
+    - Please drag the solutions to the blank spaces.
+    - Press the check button when finished with the question.The next question will
+      load and the timer will reset.
   answerList:
   - {fileID: 995642293}
   - {fileID: 841485326}
