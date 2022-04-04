@@ -1,3 +1,6 @@
+//This script is for gamescene2
+// Do the draging and dropping for the answers and the question area
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
