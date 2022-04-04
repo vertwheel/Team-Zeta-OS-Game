@@ -28,7 +28,7 @@ public class BeltScript : MonoBehaviour
     void Start()
     {
         rend = GetComponent<Renderer>();
-        //rend.material.mainTexture.wrapMode = TextureWrapMode.Repeat;
+        rend.material.mainTexture.wrapMode = TextureWrapMode.Repeat;
     }
 
     void Update()
