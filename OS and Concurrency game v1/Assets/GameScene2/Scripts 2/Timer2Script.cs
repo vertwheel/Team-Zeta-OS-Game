@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class TimerScript : MonoBehaviour
+public class Timer2Script : MonoBehaviour
 {
     [SerializeField] private Image uiFillImage;
     [SerializeField] private TMP_Text uiText;   
@@ -14,7 +14,7 @@ public class TimerScript : MonoBehaviour
 
     public int Time { get; private set; }
 
-    public void reset()
+    private void reset()
     {
         uiText.text = "00:00";
         uiFillImage.fillAmount = 0f;
@@ -23,7 +23,7 @@ public class TimerScript : MonoBehaviour
     }
 
     // This method will set the timer.
-    public TimerScript setTimer(int second)
+    public Timer2Script setTimer(int second)
     {
         Time = timeLeft = second;
         return this;
@@ -39,7 +39,9 @@ public class TimerScript : MonoBehaviour
     {
         while(timeLeft > 0)
         {
-                 
+            //find the gamescript and call OnTick
+            //coupling moment, this is definitely not good code practice but what can ya do
+            //GameObject.Find("GameObject").GetComponent<GameScript>().onTick();           
             timeLeft--;
             updateUI(timeLeft);
             
@@ -61,10 +63,10 @@ public class TimerScript : MonoBehaviour
 
     }
 
-    public int getTimeLeft()
-    {
-        return timeLeft;
-    }
+    //public int getTimeLeft()
+    //{
+    //    return timeLeft;
+    //}
     void OnMouseExit()
     {
         transform.Find("canvas").gameObject.SetActive(false);
