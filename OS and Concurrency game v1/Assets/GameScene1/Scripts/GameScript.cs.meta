@@ -3,7 +3,9 @@ guid: faef626c33f017049974501b20249e33
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - taskPrefab: {fileID: 6657102308175881279, guid: 0b93919e06e923f4b84e282f70c7f597, type: 3}
+  - processQueue: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
