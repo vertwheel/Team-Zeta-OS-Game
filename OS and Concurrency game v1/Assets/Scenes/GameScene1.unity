@@ -468,7 +468,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7633960396857257321, guid: e59450cf0523e8f40af014c69a05ebb3, type: 3}
       propertyPath: m_Size.x
-      value: 0.1
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 7633960396857257321, guid: e59450cf0523e8f40af014c69a05ebb3, type: 3}
       propertyPath: m_Size.y
@@ -1191,7 +1191,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7633960396857257321, guid: e59450cf0523e8f40af014c69a05ebb3, type: 3}
       propertyPath: m_Size.x
-      value: 0.1
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 7633960396857257321, guid: e59450cf0523e8f40af014c69a05ebb3, type: 3}
       propertyPath: m_Size.y
@@ -1999,7 +1999,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7633960396857257321, guid: e59450cf0523e8f40af014c69a05ebb3, type: 3}
       propertyPath: m_Size.x
-      value: 0.1
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 7633960396857257321, guid: e59450cf0523e8f40af014c69a05ebb3, type: 3}
       propertyPath: m_Size.y
@@ -2418,7 +2418,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7633960396857257321, guid: e59450cf0523e8f40af014c69a05ebb3, type: 3}
       propertyPath: m_Size.x
-      value: 0.1
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 7633960396857257321, guid: e59450cf0523e8f40af014c69a05ebb3, type: 3}
       propertyPath: m_Size.y
@@ -2605,7 +2605,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7633960396857257321, guid: e59450cf0523e8f40af014c69a05ebb3, type: 3}
       propertyPath: m_Size.x
-      value: 0.1
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 7633960396857257321, guid: e59450cf0523e8f40af014c69a05ebb3, type: 3}
       propertyPath: m_Size.y
@@ -2640,6 +2640,10 @@ PrefabInstance:
     - target: {fileID: 8098446210343845004, guid: b3ae419530d53d846923812eac246c53, type: 3}
       propertyPath: m_Name
       value: Quantum Clock
+      objectReference: {fileID: 0}
+    - target: {fileID: 8098446210343845004, guid: b3ae419530d53d846923812eac246c53, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8098446210343845007, guid: b3ae419530d53d846923812eac246c53, type: 3}
       propertyPath: m_Pivot.x
@@ -2948,6 +2952,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 311283557}
     m_Modifications:
+    - target: {fileID: 1421571961, guid: 0625084615e6a4248a40f93404241c87, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1913727995}
+    - target: {fileID: 1421571961, guid: 0625084615e6a4248a40f93404241c87, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: togglePause
+      objectReference: {fileID: 0}
     - target: {fileID: 6618316401525599382, guid: 0625084615e6a4248a40f93404241c87, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3206,6 +3218,41 @@ MonoBehaviour:
   conveyorBelt: {fileID: 0}
   pqAttachPoints: []
   cbAttachPoints: []
+  introtext:
+    name: Introduction
+    sentences:
+    - Welcome to Concurrancy Factory!
+    - This game will help you understand the basic concept behind concurrent programming
+      and how CPU scheduling algorithms work.
+    - 'You will complete levels of increasing difficulty that teach you about different
+      scheduling algorithms such as First Come First Serve (FCFS), Priority Scheduling
+      and the Round-Robin algorithm.
+
+'
+  FCFStext:
+    name: First Come First Serve algorithm
+    sentences:
+    - The FCFS algorithm works like you would expect it to, you put boxes that represent
+      tasks onto a conveyor belt which represents the CPU thread, and that box then
+      goes along the conveyor belt into the CPU.
+    - 'You place the boxes in the order that they come in, so the first box to arrive
+      would be the first box to be put on the conveyor belt.
+
+'
+  PQtext:
+    name: Priority Scheduling algorithm
+    sentences:
+    - The priority scheduling algorithm works so that each box has a set priority,
+      and you would then select the box with the highest priority and place it first
+      onto the belt.
+    - So, for example, for three boxes with priorities 1,2, 9, the box with priority
+      one would be placed first onto the belt, then two and then finally the box
+      with priority nine.
+  RRtext:
+    name: RR
+    sentences:
+    - Round Robin
+    - 'This is how Round robibt works '
   preList: []
   correctList: []
   resultList: []
@@ -3503,7 +3550,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7633960396857257321, guid: e59450cf0523e8f40af014c69a05ebb3, type: 3}
       propertyPath: m_Size.x
-      value: 0.1
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 7633960396857257321, guid: e59450cf0523e8f40af014c69a05ebb3, type: 3}
       propertyPath: m_Size.y
@@ -4251,7 +4298,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7633960396857257321, guid: e59450cf0523e8f40af014c69a05ebb3, type: 3}
       propertyPath: m_Size.x
-      value: 0.1
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 7633960396857257321, guid: e59450cf0523e8f40af014c69a05ebb3, type: 3}
       propertyPath: m_Size.y
@@ -4276,6 +4323,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7298887015249270179, guid: e59450cf0523e8f40af014c69a05ebb3, type: 3}
   m_PrefabInstance: {fileID: 1882736771}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1913727995 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8098446210343845003, guid: b3ae419530d53d846923812eac246c53, type: 3}
+  m_PrefabInstance: {fileID: 1118569200}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7339803aeab66b049a64cbe511e2cb31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1914557244
 GameObject:
   m_ObjectHideFlags: 0
@@ -4993,7 +5051,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2121207284}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1450754757}
+        m_TargetAssemblyTypeName: GameScript, Assembly-CSharp
+        m_MethodName: loadNext
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2121207284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5042,6 +5112,10 @@ PrefabInstance:
     - target: {fileID: 249911047155144432, guid: eb400efddb91ff543bab1bf2d9a8da30, type: 3}
       propertyPath: m_Name
       value: Test button
+      objectReference: {fileID: 0}
+    - target: {fileID: 249911047155144432, guid: eb400efddb91ff543bab1bf2d9a8da30, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 249911047155144433, guid: eb400efddb91ff543bab1bf2d9a8da30, type: 3}
       propertyPath: m_Pivot.x
@@ -5209,6 +5283,22 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1770419900}
+    - target: {fileID: 6546657549880137015, guid: b66411335812c7c4ca5c8b27c3aac36f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 411
+      objectReference: {fileID: 0}
+    - target: {fileID: 6546657550907785223, guid: b66411335812c7c4ca5c8b27c3aac36f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -359
+      objectReference: {fileID: 0}
+    - target: {fileID: 6546657550907785223, guid: b66411335812c7c4ca5c8b27c3aac36f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 48
+      objectReference: {fileID: 0}
+    - target: {fileID: 6546657550907785464, guid: b66411335812c7c4ca5c8b27c3aac36f, type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: 6546657551105533105, guid: b66411335812c7c4ca5c8b27c3aac36f, type: 3}
       propertyPath: m_Name
       value: TextBox
@@ -5243,11 +5333,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6546657551105533106, guid: b66411335812c7c4ca5c8b27c3aac36f, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 643.489
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 6546657551105533106, guid: b66411335812c7c4ca5c8b27c3aac36f, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 85.7952
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 6546657551105533106, guid: b66411335812c7c4ca5c8b27c3aac36f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5279,7 +5369,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6546657551105533106, guid: b66411335812c7c4ca5c8b27c3aac36f, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -16.2174
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6546657551105533106, guid: b66411335812c7c4ca5c8b27c3aac36f, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -5296,6 +5386,26 @@ PrefabInstance:
     - target: {fileID: 6546657551105533106, guid: b66411335812c7c4ca5c8b27c3aac36f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6546657551105533107, guid: b66411335812c7c4ca5c8b27c3aac36f, type: 3}
+      propertyPath: m_Color.a
+      value: 0.89411765
+      objectReference: {fileID: 0}
+    - target: {fileID: 6546657551400763171, guid: b66411335812c7c4ca5c8b27c3aac36f, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 800
+      objectReference: {fileID: 0}
+    - target: {fileID: 6546657551400763171, guid: b66411335812c7c4ca5c8b27c3aac36f, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6546657551400763171, guid: b66411335812c7c4ca5c8b27c3aac36f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -40.804474
+      objectReference: {fileID: 0}
+    - target: {fileID: 6546657551400763171, guid: b66411335812c7c4ca5c8b27c3aac36f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b66411335812c7c4ca5c8b27c3aac36f, type: 3}

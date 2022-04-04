@@ -77,4 +77,11 @@ public class TaskScript : MonoBehaviour
             transform.position = rayPoint;
         }
     }
+
+    private void OnMouseOver()
+    {
+        transform.Find("canvas").gameObject.SetActive(true);
+        transform.GetComponentInChildren<Text>().text = "BT:" + burst_time + '\n' + "P:" + priority;
+            
+    }
 }
