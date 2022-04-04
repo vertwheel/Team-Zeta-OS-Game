@@ -8,7 +8,7 @@ public class StartMenuScript : MonoBehaviour
 
     public void PlayGame()
     {
-        SceneManager.LoadScene("GameScene1");
+        SceneManager.LoadScene("GameScene1 1");
     }
 
     public void QuitGame()

@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class CheckDistance : MonoBehaviour
 {
+    private GameObject timer; //Reference the timer 
 
     public List<Transform> answerList = new List<Transform>();
     public List<string> answerName = new List<string>();
@@ -19,7 +20,8 @@ public class CheckDistance : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        timer = GameObject.Find("Timer"); //get the timer object
+        timer.GetComponent<Timer2Script>().setTimer(30).begin(); //start the timer at 30 seconds
     }
 
     // Update is called once per frame
@@ -48,5 +50,6 @@ public class CheckDistance : MonoBehaviour
         HideAnswer1.SetActive(false);
         HideAnswer2.SetActive(false);
         HideAnswer3.SetActive(false);
+        timer.GetComponent<Timer2Script>().setTimer(30).begin(); //Reset the timer to 30s
     }
 }
