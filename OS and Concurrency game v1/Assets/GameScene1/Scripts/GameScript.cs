@@ -6,6 +6,9 @@ using TMPro;
 using System.Linq;
 public class GameScript : MonoBehaviour
 {
+    public static GameObject testTask;
+
+
     //dont remove the [SerializeField] parts, program doesnt work without them for some reason
     [SerializeField] private GameObject taskPrefab; //defined in editor
     [SerializeField] private GameObject processQueue; //references the process queue object
@@ -20,11 +23,13 @@ public class GameScript : MonoBehaviour
     private GameObject canvas;
     private GameObject ftick;
 
+    public int listTick = 0;
+    
     private int timeQuantum = 4;
     private bool quantumTimeClockStarted = false;
 
     [SerializeField] private List<GameObject> preList; //the predetermined spawn order of tasks
-    [SerializeField] private List<GameObject> correctList; //the intended result order of tasks
+    [SerializeField] public List<GameObject> correctList = new List<GameObject> {testTask}; //the intended result order of tasks
     [SerializeField] private List<GameObject> resultList; //the recieved result order of tasks, compared to the correct list at the end
     enum GameTypes { FirstComeFirstServe, PriorityQueue, RoundRobin }; //stores the types of levels so far, to control spawn and scoring behaviour
     private GameTypes leveltype = GameTypes.PriorityQueue; //what type of level running currently
@@ -164,14 +169,28 @@ public class GameScript : MonoBehaviour
 
     }
 
+    private void tickCheck()
+    {
+        canvas.GetComponent<hideandshow>().show(tick);
+        canvas.GetComponent<hideandshow2>().hide(ftick);
+
+    }
+
+    private void tickFcheck()
+    {
+        canvas.GetComponent<hideandshow>().hide(tick);
+        canvas.GetComponent<hideandshow2>().show(ftick);
+    }
+
     //Called whenever the clock ticks
     public void onTick()
     {
-        updateBelt();
+        
 
         switch (leveltype)
         {
             case GameTypes.FirstComeFirstServe:
+                
                 if (timer.GetComponent<TimerScript>().getTimeLeft() > 20) //dont spawn anything in the last 20 sec to allow for remaining tasks to be consumed
                 {
                     //for having a random delay between spawns
@@ -184,13 +203,16 @@ public class GameScript : MonoBehaviour
                         if (newtask != null)
                         {
                             correctList.Add(newtask);
+                            updateBelt();
                         }
                     }
                 }
                 break;
             case GameTypes.PriorityQueue:
+                updateBelt();
                 break;
             case GameTypes.RoundRobin:
+                
                 if (timer.GetComponent<TimerScript>().getTimeLeft() > 20) //dont spawn anything in the last 20 sec to allow for remaining tasks to be consumed
                 {
                     //for having a random delay between spawns
@@ -203,11 +225,18 @@ public class GameScript : MonoBehaviour
                         if (newtask != null)
                         {
                             correctList.Add(newtask);
+                            updateBelt();
                         }
                     }
                 }
                 break;
-        } 
+       
+        
+        
+        }
+        
+
+
     }
 
     public void quantumTick()
@@ -248,7 +277,25 @@ public class GameScript : MonoBehaviour
             else
             {
                 resultList.Add(taskLast);
-                taskLast.active = false ; //instead of destroying, deactiveate task
+
+
+                //if (correctList[listTick] != resultList[listTick])
+                if (compareLists())
+                {
+
+
+                    tickFcheck();
+                    //listTick++;
+
+                }
+                else
+                {
+                    tickCheck();
+                    //listTick++;
+
+                }
+
+                taskLast.active = false; //instead of destroying, deactiveate task
             }
         }
 
