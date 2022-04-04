@@ -2513,3 +2513,56 @@ AssetImportParameters requested are different than current active one (requested
   custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
   custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 56247.031697 seconds.
+  path: Assets/GameScene1/Scripts/GameScript.cs
+  artifactKey: Guid(faef626c33f017049974501b20249e33) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GameScene1/Scripts/GameScript.cs using Guid(faef626c33f017049974501b20249e33) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '742c4defbbb5fc7771afba470a6fdb09') in 0.034270 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 156.372783 seconds.
+  path: Assets/GameScene1/Scripts/GameScript.cs
+  artifactKey: Guid(faef626c33f017049974501b20249e33) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GameScene1/Scripts/GameScript.cs using Guid(faef626c33f017049974501b20249e33) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5cd65fa3e50402c1dd9fe505cadce73f') in 0.010630 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 12.870225 seconds.
+  path: Assets/GameScene1/Scripts/TaskScript.cs
+  artifactKey: Guid(eee2f8a846dcbfd40ba003bff797a3d1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GameScene1/Scripts/TaskScript.cs using Guid(eee2f8a846dcbfd40ba003bff797a3d1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b2254b235c81fc5d8472b550b171797b') in 0.082766 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 14.577902 seconds.
+  path: Assets/GameScene1/Scripts/TimerScript.cs
+  artifactKey: Guid(441fe81fabf46d047a05c3993c8ad705) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GameScene1/Scripts/TimerScript.cs using Guid(441fe81fabf46d047a05c3993c8ad705) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f8731d1cf48520b045136cd20d12599b') in 0.029986 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 25.219480 seconds.
+  path: Assets/GameScene1/Prefabs/Belt.prefab
+  artifactKey: Guid(174b20bbea2f3104d8645f28f924d082) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GameScene1/Prefabs/Belt.prefab using Guid(174b20bbea2f3104d8645f28f924d082) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '477dd07256808da5a649865f143a1952') in 0.712824 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000056 seconds.
+  path: Assets/GameScene1/Prefabs/Conveyor belt.prefab
+  artifactKey: Guid(fbccdcec35f458040abca069873c0718) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GameScene1/Prefabs/Conveyor belt.prefab using Guid(fbccdcec35f458040abca069873c0718) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bd5dc8986007e2fc02c99c0a548546f9') in 0.073215 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000066 seconds.
+  path: Assets/GameScene1/Prefabs/ConveyorBelt.prefab
+  artifactKey: Guid(843277ad972c0d54da29fb76a58da2d8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GameScene1/Prefabs/ConveyorBelt.prefab using Guid(843277ad972c0d54da29fb76a58da2d8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fb0313e4ba540df1397e9b68ffe62229') in 0.057017 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000048 seconds.
+  path: Assets/GameScene1/Prefabs/Task.prefab
+  artifactKey: Guid(0b93919e06e923f4b84e282f70c7f597) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GameScene1/Prefabs/Task.prefab using Guid(0b93919e06e923f4b84e282f70c7f597) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '66ba6a20267e7c17b980846778287b40') in 0.106473 seconds 
+Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file
+AssetImportWorker is now disconnected from the server
+Process exiting
+Exiting without the bug reporter. Application will terminate with return code 0

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TaskScript : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class TaskScript : MonoBehaviour
 
     [SerializeField] private int burst_time;
     [SerializeField] private int priority;
+    //[SerializeField] private int ID;
 
 
     public void Set_priority(int set_priority)
@@ -33,6 +35,11 @@ public class TaskScript : MonoBehaviour
         burst_time = set_burst_time;
     }
 
+    //public void Set_ID(int set_ID)
+    //{
+    //    ID = set_ID;
+    //}
+
     public int Get_priority()
 
     {
@@ -44,22 +51,28 @@ public class TaskScript : MonoBehaviour
         return burst_time;
     }
 
+    //public int Get_ID()
+    //{
+    //    return ID;
+    //}
+
     void OnMouseEnter()
     {
         GetComponent<Renderer>().material.color = mouseOverColor;
     }
- 
+
     void OnMouseExit()
     {
         GetComponent<Renderer>().material.color = originalColor;
+        transform.Find("canvas").gameObject.SetActive(false);
     }
- 
+
     void OnMouseDown()
     {
         distance = Vector3.Distance(transform.position, Camera.main.transform.position);
         dragging = true;
     }
- 
+
     void OnMouseUp()
     {
         dragging = false;
@@ -67,7 +80,7 @@ public class TaskScript : MonoBehaviour
 
 
 
-// Update is called once per frame
+    // Update is called once per frame
     void Update()
     {
         if (dragging)
@@ -81,7 +94,7 @@ public class TaskScript : MonoBehaviour
     private void OnMouseOver()
     {
         transform.Find("canvas").gameObject.SetActive(true);
-        transform.GetComponentInChildren<Text>().text = "BT:" + burst_time + '\n' + "P:" + priority;
-            
+        transform.GetComponentInChildren<Text>().text = "bt:" + burst_time + "  p:" + priority;
+
     }
 }
