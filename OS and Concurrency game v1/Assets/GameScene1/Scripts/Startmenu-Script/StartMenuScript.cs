@@ -11,6 +11,11 @@ public class StartMenuScript : MonoBehaviour
         SceneManager.LoadScene("GameScene1 1");
     }
 
+    public void PlayGame2()
+    {
+        SceneManager.LoadScene("GameScene1 2");
+    }
+
     public void QuitGame()
     {
         Application.Quit();

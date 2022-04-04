@@ -8,6 +8,8 @@ using UnityEngine;
 public class CheckDistance : MonoBehaviour
 {
     private GameObject timer; //Reference the timer 
+    private GameObject textManager; //references the text manager object
+    [SerializeField] public TextClass introtext; //dialogue text for the intro
 
     public List<Transform> answerList = new List<Transform>();
     public List<string> answerName = new List<string>();
@@ -21,7 +23,10 @@ public class CheckDistance : MonoBehaviour
     void Start()
     {
         timer = GameObject.Find("Timer"); //get the timer object
+        textManager = GameObject.Find("TextManager"); //get the text manager
         timer.GetComponent<Timer2Script>().setTimer(30).begin(); //start the timer at 30 seconds
+        textManager.GetComponent<TextManager>().StartText(introtext);
+
     }
 
     // Update is called once per frame
