@@ -44,7 +44,7 @@ public class GameScript : MonoBehaviour
     [SerializeField] public List<GameObject> correctList; //the intended result order of tasks
     [SerializeField] private List<GameObject> resultList; //the recieved result order of tasks, compared to the correct list at the end
     enum GameTypes { Intro, FirstComeFirstServe, PriorityQueue, RoundRobin }; //stores the types of levels so far, to control spawn and scoring behaviour
-    private static GameTypes leveltype = GameTypes.RoundRobin; //what type of level running currently
+    private static GameTypes leveltype = GameTypes.FirstComeFirstServe; //what type of level running currently
     private bool levelPlaying = false; //check whether level has reached time 0
 
     // Start is called before the first frame update    
@@ -75,7 +75,7 @@ public class GameScript : MonoBehaviour
         canvas.GetComponent<hideandshow>().hide(tick);
 
         ftick = GameObject.Find("Fcheck");
-        canvas.GetComponent<hideandshow2>().hide(ftick);
+        canvas.GetComponent<hideandshow>().hide(ftick);
 
         startDialogue();
     }
@@ -237,14 +237,14 @@ public class GameScript : MonoBehaviour
     private void tickCheck()
     {
         canvas.GetComponent<hideandshow>().show(tick);
-        canvas.GetComponent<hideandshow2>().hide(ftick);
+        canvas.GetComponent<hideandshow>().hide(ftick);
 
     }
 
     private void tickFcheck()
     {
         canvas.GetComponent<hideandshow>().hide(tick);
-        canvas.GetComponent<hideandshow2>().show(ftick);
+        canvas.GetComponent<hideandshow>().show(ftick);
     }
 
     //Called whenever the clock ticks
