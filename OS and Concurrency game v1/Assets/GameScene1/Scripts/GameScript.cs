@@ -44,7 +44,7 @@ public class GameScript : MonoBehaviour
     [SerializeField] public List<GameObject> correctList; //the intended result order of tasks
     [SerializeField] private List<GameObject> resultList; //the recieved result order of tasks, compared to the correct list at the end
     enum GameTypes { Intro, FirstComeFirstServe, PriorityQueue, RoundRobin }; //stores the types of levels so far, to control spawn and scoring behaviour
-    private static GameTypes leveltype = GameTypes.RoundRobin; //what type of level running currently
+    private static GameTypes leveltype = GameTypes.Intro; //what type of level running currently
     private bool levelPlaying = false; //check whether level has reached time 0
 
     // Start is called before the first frame update    
@@ -176,7 +176,7 @@ public class GameScript : MonoBehaviour
         {
             case GameTypes.Intro:
                 leveltype = GameTypes.FirstComeFirstServe;
-                SceneManager.LoadScene("GameScene1");
+                SceneManager.LoadScene("GameScene1 1");
                 break;
             case GameTypes.FirstComeFirstServe:
                 if (compareLists())
@@ -225,11 +225,11 @@ public class GameScript : MonoBehaviour
         {
             case GameTypes.FirstComeFirstServe:
                 leveltype = GameTypes.PriorityQueue;
-                SceneManager.LoadScene("GameScene1");
+                SceneManager.LoadScene("GameScene1 1");
                 break;
             case GameTypes.PriorityQueue:
                 leveltype = GameTypes.RoundRobin;
-                SceneManager.LoadScene("GameScene1");
+                SceneManager.LoadScene("GameScene1 1");
                 break;
             case GameTypes.RoundRobin:
                 leveltype = GameTypes.Intro;

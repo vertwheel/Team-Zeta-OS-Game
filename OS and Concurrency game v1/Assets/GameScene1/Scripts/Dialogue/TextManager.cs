@@ -45,7 +45,10 @@ public class TextManager : MonoBehaviour
 
     void EndText() {
         animatior.SetBool("IsOpen", false);
-        GameObject.Find("GameObject").GetComponent<GameScript>().startLevel();
+        if (GameObject.Find("GameObject") != null)
+        {
+            GameObject.Find("GameObject").GetComponent<GameScript>().startLevel();
+        }
     }
 
 
