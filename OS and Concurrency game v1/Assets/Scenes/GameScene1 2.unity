@@ -570,9 +570,10 @@ MonoBehaviour:
   introtext:
     name: Coding game
     sentences:
-    - Please drag the solutions to the blank spaces.
-    - Press the check button when finished with the question.The next question will
-      load and the timer will reset.
+    - This game teaches the multithreading java component in OSC.
+    - Please drag the solutions to the blank spaces. Press the check button when
+      finished with the question. The next question will load and the timer will
+      reset.
   answerList:
   - {fileID: 995642293}
   - {fileID: 841485326}
